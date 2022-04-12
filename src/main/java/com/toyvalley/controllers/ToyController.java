@@ -10,7 +10,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/toys")
 public class ToyController {
-    private ArrayList<Toy> toyList;
+    private final ArrayList<Toy> toyList;
 
     public ToyController() {
         this.toyList = new ArrayList<>();
@@ -37,5 +37,16 @@ public class ToyController {
         toy.setId(id);
         toyList.add(toy);
         return toy;
+    }
+
+    @PutMapping("/{id}")
+    Toy updateToy(@PathVariable long id, @RequestBody Toy toy) {
+        for (Toy toyInstance : toyList) {
+            if (toyInstance.getId() == id) {
+                toyInstance.update(toy);
+                return toyInstance;
+            }
+        }
+        return null;
     }
 }

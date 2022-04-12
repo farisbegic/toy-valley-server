@@ -10,4 +10,10 @@ public class Toy {
     private String brand;
     private String model;
     private Condition condition;
+
+    public void update(Toy toy) {
+        this.brand = toy.brand;
+        this.model = toy.model;
+        this.condition = toy.condition;
+    }
 }
