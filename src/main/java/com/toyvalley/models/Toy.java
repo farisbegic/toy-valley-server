@@ -6,8 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Toy {
-    long id;
-    String brand;
-    String model;
-    Condition condition;
+    private long id;
+    private String brand;
+    private String model;
+    private Condition condition;
 }

@@ -2,9 +2,7 @@ package com.toyvalley.controllers;
 
 import com.toyvalley.models.Toy;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,5 +29,13 @@ public class ToyController {
             }
         }
         return null;
+    }
+
+    @PostMapping
+    public Toy createToy(@RequestBody Toy toy) {
+        long id = toyList.size() + 1;
+        toy.setId(id);
+        toyList.add(toy);
+        return toy;
     }
 }
