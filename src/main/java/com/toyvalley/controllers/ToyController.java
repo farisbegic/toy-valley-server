@@ -1,61 +1,47 @@
 package com.toyvalley.controllers;
 
 import com.toyvalley.models.Toy;
+import com.toyvalley.services.ToyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/toys")
 public class ToyController {
-    private final ArrayList<Toy> toyList;
+    private final ToyService toyService;
 
-    public ToyController() {
-        this.toyList = new ArrayList<>();
+    public ToyController(ToyService toyService) {
+        this.toyService = toyService;
     }
 
     @GetMapping
     public ResponseEntity<List<Toy>> getToy() {
-        return new ResponseEntity<>(this.toyList, HttpStatus.OK);
+        return new ResponseEntity<>(this.toyService.getToy(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Toy> getToy(@PathVariable long id) {
-        for (Toy toy : toyList) {
-            if (toy.getId() == id) {
-                return new ResponseEntity<>(toy, HttpStatus.OK);
-            }
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(this.toyService.getToy(id), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Toy> createToy(@RequestBody Toy toy) {
-        long id = toyList.size() + 1;
-        toy.setId(id);
-        toyList.add(toy);
-        return new ResponseEntity<>(toy, HttpStatus.OK);
+        Toy response = this.toyService.createToy(toy);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<Toy> updateToy(@PathVariable long id, @RequestBody Toy toy) {
-        for (Toy toyInstance : toyList) {
-            if (toyInstance.getId() == id) {
-                toyInstance.update(toy);
-                return new ResponseEntity<>(toyInstance, HttpStatus.OK);
-            }
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Toy> updateToy(@PathVariable long id, @RequestBody Toy toy) {
+        Toy response = this.toyService.updateToy(id, toy);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteToy(@PathVariable long id) {
-        var isRemoved = toyList.removeIf(toy -> toy.getId() == id);
-
-        if (isRemoved) {
+        if (this.toyService.deleteToy(id)) {
             return new ResponseEntity<>(id, HttpStatus.OK);
         }
 
