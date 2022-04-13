@@ -44,7 +44,6 @@ public class ToyController {
         if (this.toyService.deleteToy(id)) {
             return new ResponseEntity<>(id, HttpStatus.OK);
         }
-
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

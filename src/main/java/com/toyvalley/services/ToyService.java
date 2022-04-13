@@ -49,7 +49,6 @@ public class ToyService {
         return null;
     }
 
-    @DeleteMapping("/{id}")
     public boolean deleteToy(long id) {
         return toyList.removeIf(toy -> toy.getId() == id);
     }
