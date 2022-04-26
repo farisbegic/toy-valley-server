@@ -1,4 +1,4 @@
-package com.toyvalley.models;
+package com.toyvalley.models.enums;
 
 public enum CategoryName {
     action_figures,
@@ -13,5 +13,4 @@ public enum CategoryName {
     musical_instruments,
     outdoor_seasonal_toys,
     other,
-
 }

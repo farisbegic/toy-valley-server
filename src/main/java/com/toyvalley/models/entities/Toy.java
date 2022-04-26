@@ -1,8 +1,7 @@
-package com.toyvalley.models;
+package com.toyvalley.models.entities;
 
-import lombok.AllArgsConstructor;
+import com.toyvalley.models.enums.Condition;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter

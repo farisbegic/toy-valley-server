@@ -1,6 +1,6 @@
 package com.toyvalley.controllers;
 
-import com.toyvalley.models.Category;
+import com.toyvalley.models.entities.Category;
 import com.toyvalley.services.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
