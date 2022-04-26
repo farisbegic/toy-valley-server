@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
+@Table(name = "app_user")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -45,7 +45,10 @@ public class User {
     private City city;
 
     @OneToMany(mappedBy = "user")
-    List<Preferences> preferences;
+    private List<Preferences> preferences;
+
+    @OneToMany(mappedBy = "user")
+    private List<Toy> toys;
 
     public void update(User user) {
         this.name = user.name;

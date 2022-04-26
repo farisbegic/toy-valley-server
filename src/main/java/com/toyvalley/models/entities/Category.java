@@ -28,7 +28,10 @@ public class Category {
     private String description;
 
     @OneToMany(mappedBy = "category")
-    List<Preferences> preferences;
+    private List<Preferences> preferences;
+
+    @OneToMany(mappedBy = "category")
+    private List<ToyCategory> toyCategories;
 
     public void update(Category category) {
         this.name = category.name;
