@@ -1,6 +1,11 @@
 package com.toyvalley.controllers;
 
-import com.toyvalley.models.Category;
+import com.toyvalley.models.data.category.CategoryResponse;
+import com.toyvalley.models.data.category.CreateCategoryRequest;
+import com.toyvalley.models.data.category.UpdateCategoryRequest;
+import com.toyvalley.models.data.toy.CreateToyRequest;
+import com.toyvalley.models.data.toy.ToyResponse;
+import com.toyvalley.models.data.toy.UpdateToyRequest;
 import com.toyvalley.models.entities.Category;
 
 import com.toyvalley.services.CategoryService;
@@ -21,32 +26,32 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Category>> getCategories() {
+    public ResponseEntity<List<CategoryResponse>> getCategories() {
         return new ResponseEntity<>(this.categoryService.getCategories(), HttpStatus.OK);
     }
 
+
     @GetMapping("/{id}")
-    public ResponseEntity<Category> getCategory(@PathVariable long id) {
+    public ResponseEntity<CategoryResponse> getCategory(@PathVariable long id) {
         return new ResponseEntity<>(this.categoryService.getCategory(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Category> createCategory(@RequestBody Category category) {
-        Category response = this.categoryService.createCategory(category);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public ResponseEntity<CategoryResponse> createCategory(@RequestBody CreateCategoryRequest category) {
+        return new ResponseEntity<>(this.categoryService.createCategory(category), HttpStatus.OK);
     }
+
 
     @PutMapping("/{id}")
-    public ResponseEntity<Category> updateCategory(@PathVariable long id, @RequestBody Category category) {
-        Category response = this.categoryService.updateCategory(id, category);
+    public ResponseEntity<CategoryResponse> updateCategory(@PathVariable long id, @RequestBody UpdateCategoryRequest category) {
+        CategoryResponse response = this.categoryService.updateCategory(id, category);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteCategory(@PathVariable long id) {
-        if (this.categoryService.deleteCategory(id)) {
-            return new ResponseEntity<>(id, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity deleteCategory(@PathVariable long id) {
+        this.categoryService.deleteCategory(id);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
