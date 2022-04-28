@@ -3,7 +3,6 @@ package com.toyvalley.controllers;
 import com.toyvalley.models.data.toy.CreateToyRequest;
 import com.toyvalley.models.data.toy.ToyResponse;
 import com.toyvalley.models.data.toy.UpdateToyRequest;
-import com.toyvalley.models.entities.Toy;
 import com.toyvalley.services.ToyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

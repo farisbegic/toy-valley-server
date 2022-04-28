@@ -7,7 +7,6 @@ import com.toyvalley.models.entities.Toy;
 import com.toyvalley.repositories.ToyRepository;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,9 +24,11 @@ public class ToyService {
     public List<ToyResponse> getToy() {
         List<Toy> toys = toyRepository.findAll();
         ArrayList<ToyResponse> responseList = new ArrayList<>();
+
         for (Toy toy : toys) {
-            responseList.add(new ToyResponse(toy.getId() ,toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDatePurchased()));
+            responseList.add(new ToyResponse(toy.getId(), toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDatePurchased()));
         }
+
         return responseList;
     }
 
@@ -36,7 +37,7 @@ public class ToyService {
 
         if (toyOptional.isPresent()) {
             Toy toy = toyOptional.get();
-            return new ToyResponse(toy.getId() ,toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDatePurchased());
+            return new ToyResponse(toy.getId(), toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDatePurchased());
         }
 
         throw new RuntimeException("Item with id " + id + " not found.");
@@ -52,12 +53,14 @@ public class ToyService {
 
     public ToyResponse updateToy(long id, UpdateToyRequest toy) {
         Optional<Toy> toyOptional = toyRepository.findById(id);
+
         if (toyOptional.isPresent()) {
             Toy toyEntity = toyOptional.get();
-            toyEntity.update(toy.getName(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDate_purchased(), toy.is_active() , toy.getDescription());
+            toyEntity.update(toy.getName(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDate_purchased(), toy.is_active(), toy.getDescription());
             toyRepository.save(toyEntity);
             return new ToyResponse(toyEntity.getId(), toyEntity.getName(), toyEntity.getDescription(), toyEntity.getBrand(), toyEntity.getGender(), toyEntity.getCondition(), toyEntity.getAge(), toyEntity.getDatePurchased());
         }
+
         throw new RuntimeException("Item with id " + id + " not found.");
     }
 
