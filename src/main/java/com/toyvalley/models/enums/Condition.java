@@ -1,4 +1,4 @@
-package com.toyvalley.models;
+package com.toyvalley.models.enums;
 
 public enum Condition {
     brandNew,

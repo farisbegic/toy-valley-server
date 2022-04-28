@@ -1,6 +1,6 @@
 package com.toyvalley.services;
 
-import com.toyvalley.models.User;
+import com.toyvalley.models.entities.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

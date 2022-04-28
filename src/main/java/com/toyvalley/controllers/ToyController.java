@@ -1,6 +1,8 @@
 package com.toyvalley.controllers;
 
-import com.toyvalley.models.Toy;
+import com.toyvalley.models.data.toy.CreateToyRequest;
+import com.toyvalley.models.data.toy.ToyResponse;
+import com.toyvalley.models.data.toy.UpdateToyRequest;
 import com.toyvalley.services.ToyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,32 +20,29 @@ public class ToyController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Toy>> getToy() {
+    public ResponseEntity<List<ToyResponse>> getToy() {
         return new ResponseEntity<>(this.toyService.getToy(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Toy> getToy(@PathVariable long id) {
+    public ResponseEntity<ToyResponse> getToy(@PathVariable long id) {
         return new ResponseEntity<>(this.toyService.getToy(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Toy> createToy(@RequestBody Toy toy) {
-        Toy response = this.toyService.createToy(toy);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public ResponseEntity<ToyResponse> createToy(@RequestBody CreateToyRequest toy) {
+        return new ResponseEntity<>(this.toyService.createToy(toy), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Toy> updateToy(@PathVariable long id, @RequestBody Toy toy) {
-        Toy response = this.toyService.updateToy(id, toy);
+    public ResponseEntity<ToyResponse> updateToy(@PathVariable long id, @RequestBody UpdateToyRequest toy) {
+        ToyResponse response = this.toyService.updateToy(id, toy);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteToy(@PathVariable long id) {
-        if (this.toyService.deleteToy(id)) {
-            return new ResponseEntity<>(id, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity deleteToy(@PathVariable long id) {
+        this.toyService.deleteToy(id);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

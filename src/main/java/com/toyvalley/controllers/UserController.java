@@ -1,11 +1,7 @@
 package com.toyvalley.controllers;
 
-import com.toyvalley.models.Toy;
-import com.toyvalley.models.User;
-import com.toyvalley.services.ToyService;
+import com.toyvalley.models.entities.User;
 import com.toyvalley.services.UserService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

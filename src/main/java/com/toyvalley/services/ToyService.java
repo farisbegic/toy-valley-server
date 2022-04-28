@@ -1,55 +1,70 @@
 package com.toyvalley.services;
 
-import com.toyvalley.models.Toy;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.toyvalley.models.data.toy.CreateToyRequest;
+import com.toyvalley.models.data.toy.ToyResponse;
+import com.toyvalley.models.data.toy.UpdateToyRequest;
+import com.toyvalley.models.entities.Toy;
+import com.toyvalley.repositories.ToyRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ToyService {
     private final ArrayList<Toy> toyList;
+    private final ToyRepository toyRepository;
 
-    public ToyService() {
+    public ToyService(ToyRepository toyRepository) {
+        this.toyRepository = toyRepository;
         this.toyList = new ArrayList<>();
     }
 
-    public List<Toy> getToy() {
-        return this.toyList;
-    }
+    public List<ToyResponse> getToy() {
+        List<Toy> toys = toyRepository.findAll();
+        ArrayList<ToyResponse> responseList = new ArrayList<>();
 
-    public Toy getToy(long id) {
-        for (Toy toy : toyList) {
-            if (toy.getId() == id) {
-                return toy;
-            }
+        for (Toy toy : toys) {
+            responseList.add(new ToyResponse(toy.getId(), toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDatePurchased()));
         }
-        return null;
+
+        return responseList;
     }
 
-    public Toy createToy(Toy toy) {
-        long id = toyList.size() + 1;
-        toy.setId(id);
-        toyList.add(toy);
-        return toy;
-    }
+    public ToyResponse getToy(long id) {
+        Optional<Toy> toyOptional = toyRepository.findById(id);
 
-    public Toy updateToy(long id, Toy toy) {
-        for (Toy toyInstance : toyList) {
-            if (toyInstance.getId() == id) {
-                toyInstance.update(toy);
-                return toyInstance;
-            }
+        if (toyOptional.isPresent()) {
+            Toy toy = toyOptional.get();
+            return new ToyResponse(toy.getId(), toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDatePurchased());
         }
-        return null;
+
+        throw new RuntimeException("Item with id " + id + " not found.");
     }
 
-    public boolean deleteToy(long id) {
-        return toyList.removeIf(toy -> toy.getId() == id);
+    public ToyResponse createToy(CreateToyRequest toy) {
+        // Grab User ID from JWT and use User Repository for fetching user.
+        // Save Toy and use newly created toy for Toy Images and Toy Categories
+        Toy toyEntity = new Toy(toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDate_purchased());
+        Toy newToy = toyRepository.save(toyEntity);
+        return new ToyResponse(newToy.getId(), newToy.getName(), newToy.getDescription(), newToy.getBrand(), newToy.getGender(), newToy.getCondition(), newToy.getAge(), newToy.getDatePurchased());
+    }
+
+    public ToyResponse updateToy(long id, UpdateToyRequest toy) {
+        Optional<Toy> toyOptional = toyRepository.findById(id);
+
+        if (toyOptional.isPresent()) {
+            Toy toyEntity = toyOptional.get();
+            toyEntity.update(toy.getName(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDate_purchased(), toy.is_active(), toy.getDescription());
+            toyRepository.save(toyEntity);
+            return new ToyResponse(toyEntity.getId(), toyEntity.getName(), toyEntity.getDescription(), toyEntity.getBrand(), toyEntity.getGender(), toyEntity.getCondition(), toyEntity.getAge(), toyEntity.getDatePurchased());
+        }
+
+        throw new RuntimeException("Item with id " + id + " not found.");
+    }
+
+    public void deleteToy(long id) {
+        toyRepository.deleteById(id);
     }
 }
