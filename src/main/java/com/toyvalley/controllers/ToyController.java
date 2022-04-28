@@ -1,5 +1,7 @@
 package com.toyvalley.controllers;
 
+import com.toyvalley.models.data.CreateToyRequest;
+import com.toyvalley.models.data.ToyResponse;
 import com.toyvalley.models.entities.Toy;
 import com.toyvalley.services.ToyService;
 import org.springframework.http.HttpStatus;
@@ -18,19 +20,18 @@ public class ToyController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Toy>> getToy() {
+    public ResponseEntity<List<ToyResponse>> getToy() {
         return new ResponseEntity<>(this.toyService.getToy(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Toy> getToy(@PathVariable long id) {
+    public ResponseEntity<ToyResponse> getToy(@PathVariable long id) {
         return new ResponseEntity<>(this.toyService.getToy(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Toy> createToy(@RequestBody Toy toy) {
-        Toy response = this.toyService.createToy(toy);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public ResponseEntity<ToyResponse> createToy(@RequestBody CreateToyRequest toy) {
+        return new ResponseEntity<>(this.toyService.createToy(toy), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
