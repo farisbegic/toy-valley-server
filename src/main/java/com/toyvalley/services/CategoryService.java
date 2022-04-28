@@ -1,7 +1,11 @@
 package com.toyvalley.services;
 
+import com.toyvalley.models.Category;
+import com.toyvalley.models.CategoryName;
+
 import com.toyvalley.models.entities.Category;
 import com.toyvalley.models.enums.CategoryName;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -55,7 +59,10 @@ public class CategoryService {
     private Category generateVehicleCategory() {
         Category category = new Category();
         category.setId(1);
+
+        category.setCategoryName(CategoryName.vehicles);
         category.setName(CategoryName.vehicles);
+
         category.setDescription("Vehicles are one of the most popular categories for boys.");
         return category;
     }
