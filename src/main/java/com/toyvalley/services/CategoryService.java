@@ -49,6 +49,7 @@ public class CategoryService {
     }
 
     public boolean deleteCategory(long id) {
+
         return categoriesList.removeIf(category -> category.getId() == id);
     }
 
