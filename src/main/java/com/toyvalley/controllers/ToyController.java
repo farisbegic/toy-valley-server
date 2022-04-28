@@ -1,7 +1,8 @@
 package com.toyvalley.controllers;
 
-import com.toyvalley.models.data.CreateToyRequest;
-import com.toyvalley.models.data.ToyResponse;
+import com.toyvalley.models.data.toy.CreateToyRequest;
+import com.toyvalley.models.data.toy.ToyResponse;
+import com.toyvalley.models.data.toy.UpdateToyRequest;
 import com.toyvalley.models.entities.Toy;
 import com.toyvalley.services.ToyService;
 import org.springframework.http.HttpStatus;
@@ -35,8 +36,8 @@ public class ToyController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Toy> updateToy(@PathVariable long id, @RequestBody Toy toy) {
-        Toy response = this.toyService.updateToy(id, toy);
+    public ResponseEntity<ToyResponse> updateToy(@PathVariable long id, @RequestBody UpdateToyRequest toy) {
+        ToyResponse response = this.toyService.updateToy(id, toy);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

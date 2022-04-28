@@ -73,18 +73,40 @@ public class Toy {
         this.gender = gender;
         this.condition = condition;
         this.age = age;
+        this.isActive = true;
+        this.datePosted = new Date();
         this.datePurchased = datePurchased;
     }
 
-    public void update(Toy toy) {
-        this.name = toy.name;
-        this.brand = toy.brand;
-        this.gender = toy.gender;
-        this.condition = toy.condition;
-        this.age = toy.age;
-        this.datePurchased = toy.datePurchased;
-        this.datePosted = toy.datePosted;
-        this.isActive = toy.isActive;
-        this.description = toy.description;
+    public void update(String name, String brand, Gender gender, Condition condition, int age, Date datePurchased, boolean isActive, String description) {
+        this.name = name;
+        this.brand = brand;
+        this.gender = gender;
+        this.condition = condition;
+        this.age = age;
+        this.datePurchased = datePurchased;
+        this.isActive = isActive;
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Toy{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", brand='" + brand + '\'' +
+                ", gender=" + gender +
+                ", condition=" + condition +
+                ", age=" + age +
+                ", datePurchased=" + datePurchased +
+                ", datePosted=" + datePosted +
+                ", isActive=" + isActive +
+                ", user=" + user +
+                ", toyCategories=" + toyCategories +
+                ", toyOffers=" + toyOffers +
+                ", toyRequests=" + toyRequests +
+                ", toyImages=" + toyImages +
+                '}';
     }
 }

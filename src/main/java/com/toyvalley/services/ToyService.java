@@ -1,13 +1,14 @@
 package com.toyvalley.services;
 
-import com.toyvalley.models.data.CreateToyRequest;
-import com.toyvalley.models.data.ToyResponse;
+import com.toyvalley.models.data.toy.CreateToyRequest;
+import com.toyvalley.models.data.toy.ToyResponse;
+import com.toyvalley.models.data.toy.UpdateToyRequest;
 import com.toyvalley.models.entities.Toy;
 import com.toyvalley.repositories.ToyRepository;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,14 +50,15 @@ public class ToyService {
         return new ToyResponse(newToy.getId(), newToy.getName(), newToy.getDescription(), newToy.getBrand(), newToy.getGender(), newToy.getCondition(), newToy.getAge(), newToy.getDatePurchased());
     }
 
-    public Toy updateToy(long id, Toy toy) {
-        for (Toy toyInstance : toyList) {
-            if (toyInstance.getId() == id) {
-                toyInstance.update(toy);
-                return toyInstance;
-            }
+    public ToyResponse updateToy(long id, UpdateToyRequest toy) {
+        Optional<Toy> toyOptional = toyRepository.findById(id);
+        if (toyOptional.isPresent()) {
+            Toy toyEntity = toyOptional.get();
+            toyEntity.update(toy.getName(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDate_purchased(), toy.is_active() , toy.getDescription());
+            toyRepository.save(toyEntity);
+            return new ToyResponse(toyEntity.getId(), toyEntity.getName(), toyEntity.getDescription(), toyEntity.getBrand(), toyEntity.getGender(), toyEntity.getCondition(), toyEntity.getAge(), toyEntity.getDatePurchased());
         }
-        return null;
+        throw new RuntimeException("Item with id " + id + " not found.");
     }
 
     public boolean deleteToy(long id) {
