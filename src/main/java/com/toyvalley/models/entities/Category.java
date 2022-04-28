@@ -33,9 +33,24 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<ToyCategory> toyCategories;
 
-    public void update(Category category) {
-        this.name = category.name;
-        this.description = category.description;
+    public Category(CategoryName name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public void update(CategoryName name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
 
