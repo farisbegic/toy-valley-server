@@ -61,7 +61,7 @@ public class ToyService {
         throw new RuntimeException("Item with id " + id + " not found.");
     }
 
-    public boolean deleteToy(long id) {
-        return toyList.removeIf(toy -> toy.getId() == id);
+    public void deleteToy(long id) {
+        toyRepository.deleteById(id);
     }
 }

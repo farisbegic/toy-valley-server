@@ -42,10 +42,8 @@ public class ToyController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteToy(@PathVariable long id) {
-        if (this.toyService.deleteToy(id)) {
-            return new ResponseEntity<>(id, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity deleteToy(@PathVariable long id) {
+        this.toyService.deleteToy(id);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
