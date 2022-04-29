@@ -4,8 +4,6 @@ import com.toyvalley.models.data.toy.CreateToyRequest;
 import com.toyvalley.models.data.toy.ToyResponse;
 import com.toyvalley.models.data.toy.UpdateToyRequest;
 import com.toyvalley.models.entities.Toy;
-import com.toyvalley.models.entities.ToyCategory;
-import com.toyvalley.repositories.ToyCategoryRepository;
 import com.toyvalley.repositories.ToyRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +14,9 @@ import java.util.Optional;
 @Service
 public class ToyService {
     private final ToyRepository toyRepository;
-    private final ToyCategoryRepository toyCategoryRepository;
 
-    public ToyService(ToyRepository toyRepository, ToyCategoryRepository toyCategoryRepository) {
+    public ToyService(ToyRepository toyRepository) {
         this.toyRepository = toyRepository;
-        this.toyCategoryRepository = toyCategoryRepository;
     }
 
     public List<ToyResponse> getToy() {
