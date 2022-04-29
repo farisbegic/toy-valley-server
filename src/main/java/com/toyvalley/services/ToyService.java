@@ -4,6 +4,8 @@ import com.toyvalley.models.data.toy.CreateToyRequest;
 import com.toyvalley.models.data.toy.ToyResponse;
 import com.toyvalley.models.data.toy.UpdateToyRequest;
 import com.toyvalley.models.entities.Toy;
+import com.toyvalley.models.entities.ToyCategory;
+import com.toyvalley.repositories.ToyCategoryRepository;
 import com.toyvalley.repositories.ToyRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +15,12 @@ import java.util.Optional;
 
 @Service
 public class ToyService {
-    private final ArrayList<Toy> toyList;
     private final ToyRepository toyRepository;
+    private final ToyCategoryRepository toyCategoryRepository;
 
-    public ToyService(ToyRepository toyRepository) {
+    public ToyService(ToyRepository toyRepository, ToyCategoryRepository toyCategoryRepository) {
         this.toyRepository = toyRepository;
-        this.toyList = new ArrayList<>();
+        this.toyCategoryRepository = toyCategoryRepository;
     }
 
     public List<ToyResponse> getToy() {
@@ -66,5 +68,14 @@ public class ToyService {
 
     public void deleteToy(long id) {
         toyRepository.deleteById(id);
+    }
+
+    public List<ToyResponse> getToyByCategory(long categoryId) {
+        ArrayList<ToyResponse> toyResponseList = new ArrayList<>();
+        List<Toy> toysList = toyRepository.getToysByCategoryId(categoryId);
+        for (Toy toy : toysList) {
+            toyResponseList.add(new ToyResponse(toy.getId(), toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDatePurchased()));
+        }
+        return toyResponseList;
     }
 }
