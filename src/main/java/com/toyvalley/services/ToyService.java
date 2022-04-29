@@ -13,12 +13,10 @@ import java.util.Optional;
 
 @Service
 public class ToyService {
-    private final ArrayList<Toy> toyList;
     private final ToyRepository toyRepository;
 
     public ToyService(ToyRepository toyRepository) {
         this.toyRepository = toyRepository;
-        this.toyList = new ArrayList<>();
     }
 
     public List<ToyResponse> getToy() {
@@ -66,5 +64,14 @@ public class ToyService {
 
     public void deleteToy(long id) {
         toyRepository.deleteById(id);
+    }
+
+    public List<ToyResponse> getToyByCategory(long categoryId) {
+        ArrayList<ToyResponse> toyResponseList = new ArrayList<>();
+        List<Toy> toysList = toyRepository.getToysByCategoryId(categoryId);
+        for (Toy toy : toysList) {
+            toyResponseList.add(new ToyResponse(toy.getId(), toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDatePurchased()));
+        }
+        return toyResponseList;
     }
 }
