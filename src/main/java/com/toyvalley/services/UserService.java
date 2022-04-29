@@ -1,57 +1,74 @@
 package com.toyvalley.services;
 
+import com.toyvalley.models.data.toy.ToyResponse;
+import com.toyvalley.models.data.user.CreateUserRequest;
+import com.toyvalley.models.data.user.UpdateUserRequest;
+import com.toyvalley.models.data.user.UserResponse;
+import com.toyvalley.models.entities.City;
+import com.toyvalley.models.entities.Toy;
 import com.toyvalley.models.entities.User;
+import com.toyvalley.repositories.UserRepository;
+import org.hibernate.sql.Update;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
 
     private final List<User> userList;
+    private final UserRepository userRepository;
 
-    public UserService() {
-        userList = new ArrayList<User>();
+    public UserService(UserRepository userRepository) {
+        userList = new ArrayList<>();
+        this.userRepository = userRepository;
     }
 
-    public List<User> getUsers() {
-        return userList;
+    public List<UserResponse> getUsers() {
+      List<User> users = userRepository.findAll();
+      ArrayList<UserResponse> responseList = new ArrayList<>();
+
+      for (User user : users) {
+        responseList.add(new UserResponse(user.getId(), user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), user.getCity(), user.getEmail(), user.getPassword()));
+      }
+
+      return responseList;
     }
 
-    public User getUser(long id) {
-        for (User userInstance : userList) {
-            if (userInstance.getId() == id) {
-                return userInstance;
-            }
+    public UserResponse getUser(long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+          User user = userOptional.get();
+          return new UserResponse(user.getId(), user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), user.getCity(), user.getEmail(), user.getPassword());
         }
         throw new RuntimeException("User with id " + id + " is not found");
     }
 
-    public User createUser(User model) {
-        long id = userList.size() + 1;
-        model.setId(id);
-        userList.add(model);
-        return model;
+    public UserResponse createUser(CreateUserRequest user) {
+      User userEntity = new User(user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), user.getCity(), user.getEmail(), user.getPassword());
+      User newUser = userRepository.save(userEntity);
+      return new UserResponse(newUser.getId(), newUser.getName(), newUser.getSurname(), newUser.getPhone(), newUser.getAddress(), newUser.getCity(), newUser.getEmail(), newUser.getPassword());
     }
 
-    public User updateUser(long id, User user) {
-        for (User userInstance : userList) {
-            if (userInstance.getId() == id) {
-                userInstance.update(user);
-                return userInstance;
-            }
-        }
-        throw new RuntimeException("User with id " + id + " is not found");
+    public UserResponse updateUser(long id, UpdateUserRequest user) {
+
+      Optional<User> userOptional = userRepository.findById(id);
+
+      if (userOptional.isPresent()) {
+        User userEntity = userOptional.get();
+        userEntity.update(user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), user.getCity(), user.getEmail(), user.getPassword());
+        userRepository.save(userEntity);
+        return new UserResponse(userEntity.getId(), userEntity.getName(), userEntity.getSurname(), userEntity.getPhone(), userEntity.getAddress(), userEntity.getCity(), userEntity.getEmail(), userEntity.getPassword());
+      }
+
+      throw new RuntimeException("User with id " + id + " is not found");
     }
 
     public boolean deleteUser(long id) {
-        for (User userInstance : userList) {
-            if (userInstance.getId() == id) {
-                //userList.remove(userInstance);
-                return userList.remove(userInstance);
-            }
-        }
+        userRepository.deleteById(id);
         throw new RuntimeException("User with id " + id + " is not found");
     }
 }

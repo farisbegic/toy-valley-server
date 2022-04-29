@@ -8,12 +8,12 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "preferences")
+@Table(name = "preference")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Preferences {
+public class Preference {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -22,5 +22,5 @@ public class Preferences {
     User user;
 
     @ManyToOne
-    Category category;
+    Category preference;
 }

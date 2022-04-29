@@ -16,48 +16,60 @@ import java.util.List;
 @Getter
 @Setter
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
 
-    @Column(name = "name")
-    private String name;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
 
-    @Column(name = "surname")
-    private String surname;
+  @Column(name = "name")
+  private String name;
 
-    @Column(name = "phone")
-    private String phone;
+  @Column(name = "surname")
+  private String surname;
 
-    @Column(name = "date_of_birth")
-    private Date dob;
+  @Column(name = "phone")
+  private String phone;
 
-    @Column(name = "address")
-    private String address;
+  @Column(name = "address")
+  private String address;
 
-    @Column(name = "email", nullable = false)
-    private String email;
+  @Column(name = "email", nullable = false)
+  private String email;
 
-    @Column(name = "password")
-    private String password;
+  @Column(name = "password")
+  private String password;
 
-    @ManyToOne
-    private City city;
+  @Column(name = "active")
+  private boolean isActive;
 
-    @OneToMany(mappedBy = "user")
-    private List<Preferences> preferences;
+  @ManyToOne
+  private City city;
 
-    @OneToMany(mappedBy = "user")
-    private List<Toy> toys;
+  @OneToMany(mappedBy = "user")
+  private List<Preference> preferences;
 
-    public void update(User user) {
-        this.name = user.name;
-        this.surname = user.surname;
-        this.phone = user.phone;
-        this.dob = user.dob;
-        this.address = user.address;
-        this.email = user.email;
-        this.password = user.password;
-        this.city = user.city;
+  @OneToMany(mappedBy = "user")
+  private List<Toy> toys;
+
+  public User(String name, String surname, String phone, String address, City city, String email, String password) {
+    this.name = name;
+    this.surname = surname;
+    this.phone = phone;
+    this.address = address;
+    this.city = city;
+    this.email = email;
+    this.password = password;
+    this.isActive = true;
+  }
+
+  public void update(String name, String surname, String phone, String address, City city, String email, String password) {
+    this.name = name;
+    this.surname = surname;
+    this.phone = phone;
+    this.address = address;
+    this.city = city;
+    this.email = email;
+    this.password = password;
+    this.isActive = true;
     }
 }
