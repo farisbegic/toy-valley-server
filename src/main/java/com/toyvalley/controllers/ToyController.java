@@ -29,6 +29,11 @@ public class ToyController {
         return new ResponseEntity<>(this.toyService.getToy(id), HttpStatus.OK);
     }
 
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<ToyResponse>> getToyByCategoryId(@PathVariable long categoryId) {
+        return new ResponseEntity<>(this.toyService.getToyByCategory(categoryId), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<ToyResponse> createToy(@RequestBody CreateToyRequest toy) {
         return new ResponseEntity<>(this.toyService.createToy(toy), HttpStatus.OK);
