@@ -67,7 +67,7 @@ public class UserService {
       throw new RuntimeException("User with id " + id + " is not found");
     }
 
-    public boolean deleteUser(long id) {
-      return userRepository.setUserActivity(false, id);
+    public void deleteUser(long id) {
+      userRepository.setUserActivity(false, id);
     }
 }

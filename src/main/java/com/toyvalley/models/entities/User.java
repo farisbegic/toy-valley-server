@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -40,7 +39,7 @@ public class User {
   private String password;
 
   @Column(name = "active")
-  private boolean isActive;
+  private boolean active;
 
   @ManyToOne
   private City city;
@@ -59,7 +58,7 @@ public class User {
     this.city = city;
     this.email = email;
     this.password = password;
-    this.isActive = true;
+    this.active = true;
   }
 
   public void update(String name, String surname, String phone, String address, City city, String email, String password) {
@@ -70,6 +69,6 @@ public class User {
     this.city = city;
     this.email = email;
     this.password = password;
-    this.isActive = true;
+    this.active = active;
     }
 }
