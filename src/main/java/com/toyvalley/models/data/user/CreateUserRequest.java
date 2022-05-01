@@ -14,6 +14,4 @@ public class CreateUserRequest {
   private String email;
   private String password;
   private City city;
-  private boolean isActive;
-
 }

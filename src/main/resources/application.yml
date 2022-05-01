@@ -5,7 +5,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:${DB_PORT:5432}/toy_valley
     username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:admin}
+    password: ${DB_PASSWORD:postgres}
   jpa:
     hibernate:
       ddl-auto: update

@@ -15,5 +15,4 @@ public class UserResponse {
   private City city;
   private String email;
   private String password;
-
 }
