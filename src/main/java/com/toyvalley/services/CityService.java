@@ -1,9 +1,7 @@
 package com.toyvalley.services;
 
 import com.toyvalley.models.data.city.CityResponse;
-import com.toyvalley.models.data.toy.ToyResponse;
 import com.toyvalley.models.entities.City;
-import com.toyvalley.models.entities.Toy;
 import com.toyvalley.repositories.CityRepository;
 import org.springframework.stereotype.Service;
 
