@@ -1,12 +1,9 @@
 package com.toyvalley.controllers;
 
-import com.toyvalley.models.data.toy.ToyResponse;
 import com.toyvalley.models.data.user.CreateUserRequest;
 import com.toyvalley.models.data.user.UpdateUserRequest;
 import com.toyvalley.models.data.user.UserResponse;
-import com.toyvalley.models.entities.User;
 import com.toyvalley.services.UserService;
-import org.hibernate.sql.Update;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,8 +40,8 @@ public class UserController {
         return new ResponseEntity<>(this.userService.updateUser(id, user), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable long id) {
-      this.userService.deleteUser(id);
-    }
+    /*@DeleteMapping("/{id}")
+    public ResponseEntity<UserResponse> deactivateUser(@PathVariable long id) {
+      return new ResponseEntity<>(this.userService.deactivateUser(id), HttpStatus.OK);
+    }*/
 }
