@@ -27,8 +27,8 @@ public class Category {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "category")
-    private List<Preferences> preferences;
+    @OneToMany(mappedBy = "preference")
+    private List<Preference> preferences;
 
     @OneToMany(mappedBy = "category")
     private List<ToyCategory> toyCategories;

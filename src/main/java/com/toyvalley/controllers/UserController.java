@@ -1,7 +1,11 @@
 package com.toyvalley.controllers;
 
-import com.toyvalley.models.entities.User;
+import com.toyvalley.models.data.user.CreateUserRequest;
+import com.toyvalley.models.data.user.UpdateUserRequest;
+import com.toyvalley.models.data.user.UserResponse;
 import com.toyvalley.services.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,27 +21,27 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getUsers() {
-        return userService.getUsers();
+    public ResponseEntity<List<UserResponse>> getUsers() {
+        return new ResponseEntity<>(this.userService.getUsers(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable long id) {
-        return userService.getUser(id);
+    public ResponseEntity<UserResponse> getUser(@PathVariable long id) {
+        return new ResponseEntity<>(this.userService.getUser(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
+    public ResponseEntity<UserResponse> createUser(@RequestBody CreateUserRequest user) {
+        return new ResponseEntity<>(this.userService.createUser(user), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable long id, @RequestBody User user) {
-        return userService.updateUser(id, user);
+    public ResponseEntity<UserResponse> updateUser(@PathVariable long id, @RequestBody UpdateUserRequest user) {
+        return new ResponseEntity<>(this.userService.updateUser(id, user), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public boolean deleteUser(@PathVariable long id) {
-        return userService.deleteUser(id);
-    }
+    /*@DeleteMapping("/{id}")
+    public ResponseEntity<UserResponse> deactivateUser(@PathVariable long id) {
+      return new ResponseEntity<>(this.userService.deactivateUser(id), HttpStatus.OK);
+    }*/
 }
