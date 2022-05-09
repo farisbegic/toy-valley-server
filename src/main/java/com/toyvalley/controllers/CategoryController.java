@@ -3,11 +3,6 @@ package com.toyvalley.controllers;
 import com.toyvalley.models.data.category.CategoryResponse;
 import com.toyvalley.models.data.category.CreateCategoryRequest;
 import com.toyvalley.models.data.category.UpdateCategoryRequest;
-import com.toyvalley.models.data.toy.CreateToyRequest;
-import com.toyvalley.models.data.toy.ToyResponse;
-import com.toyvalley.models.data.toy.UpdateToyRequest;
-import com.toyvalley.models.entities.Category;
-
 import com.toyvalley.services.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
