@@ -8,6 +8,6 @@ import java.util.Date;
 
 public class ToyTest {
     public static Toy toy() {
-        return new Toy("Star Wars", "A great toy", "Lego", Gender.unisex, Condition.brandNew, 0, new Date());
+        return new Toy(1L, "Star Wars", "A great toy", "Lego", Gender.unisex, Condition.brandNew, 0, new Date());
     }
 }

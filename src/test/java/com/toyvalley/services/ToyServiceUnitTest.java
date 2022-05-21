@@ -16,8 +16,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 @RunWith(SpringRunner.class)
 public class ToyServiceUnitTest {
@@ -51,5 +53,22 @@ public class ToyServiceUnitTest {
     @Test
     public void givenNoToys_whenGetToys_thenListShouldBeEmpty() {
         assertThat(toyService.getToy()).isEmpty();
+    }
+
+    @Test
+    public void givenValidId_whenGetToy_thenToyShouldBeFound() {
+        Toy toy = ToyTest.toy();
+        Mockito.when(toyRepository.findById(toy.getId())).thenReturn(Optional.of(toy));
+
+        ToyResponse returnedToy = toyService.getToy(toy.getId());
+
+        assertThat(returnedToy.getName()).isEqualTo(toy.getName());
+    }
+
+    @Test
+    public void givenInvalidId_whenGetToy_thenExceptionShouldBeThrown() {
+        assertThatThrownBy(() -> toyService.getToy(2L))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("not found");
     }
 }
