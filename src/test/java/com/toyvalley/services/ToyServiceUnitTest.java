@@ -3,6 +3,7 @@ package com.toyvalley.services;
 import com.toyvalley.data.ToyTest;
 import com.toyvalley.models.data.toy.CreateToyRequest;
 import com.toyvalley.models.data.toy.ToyResponse;
+import com.toyvalley.models.data.toy.UpdateToyRequest;
 import com.toyvalley.models.entities.Toy;
 import com.toyvalley.repositories.ToyRepository;
 import org.junit.Test;
@@ -120,5 +121,32 @@ public class ToyServiceUnitTest {
 
         verify(toyRepository, times(1)).deleteById(id);
 
+    }
+
+    @Test
+    public void givenItemAndValidId_whenUpdate_thenItemReturned() {
+        Toy inputToy = ToyTest.toy();
+        inputToy.setId(0L);
+        Toy outputToy = ToyTest.toy();
+        long id = 1L;
+
+        Mockito.when(toyRepository.findById(id)).thenReturn(Optional.of(outputToy));
+        Mockito.when(toyRepository.save(inputToy)).thenReturn(outputToy);
+
+        UpdateToyRequest updateToy = new UpdateToyRequest(inputToy.getName(), inputToy.getDescription(), inputToy.getBrand(), inputToy.getGender(), inputToy.getCondition(), inputToy.getAge(), inputToy.isActive(), inputToy.getDatePurchased());
+        ToyResponse returnedToy = toyService.updateToy(id, updateToy);
+
+        assertThat(returnedToy).isNotNull();
+        assertThat(returnedToy.getName()).isEqualTo(inputToy.getName());
+        assertThat(returnedToy.getId()).isEqualTo(id);
+    }
+
+    @Test
+    public void givenInvalidId_whenUpdate_thenExceptionShouldBeThrown() {
+        Toy inputToy = ToyTest.toy();
+        UpdateToyRequest updateToy = new UpdateToyRequest(inputToy.getName(), inputToy.getDescription(), inputToy.getBrand(), inputToy.getGender(), inputToy.getCondition(), inputToy.getAge(), inputToy.isActive(), inputToy.getDatePurchased());
+        assertThatThrownBy(() -> toyService.updateToy(2L, updateToy))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("not found");
     }
 }
