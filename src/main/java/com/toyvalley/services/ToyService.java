@@ -1,6 +1,7 @@
 package com.toyvalley.services;
 
 import com.toyvalley.models.data.toy.CreateToyRequest;
+import com.toyvalley.models.data.toy.SearchToyResponse;
 import com.toyvalley.models.data.toy.ToyResponse;
 import com.toyvalley.models.data.toy.UpdateToyRequest;
 import com.toyvalley.models.entities.Toy;
@@ -71,6 +72,15 @@ public class ToyService {
         List<Toy> toysList = toyRepository.getToysByCategoryId(categoryId);
         for (Toy toy : toysList) {
             toyResponseList.add(new ToyResponse(toy.getId(), toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDatePurchased()));
+        }
+        return toyResponseList;
+    }
+
+    public List<SearchToyResponse> getToyByName(String name) {
+        ArrayList<SearchToyResponse> toyResponseList = new ArrayList<>();
+        List<Toy> toysList = toyRepository.getToysByName(name);
+        for (Toy toy : toysList) {
+            toyResponseList.add(new SearchToyResponse(toy.getId(), toy.getName()));
         }
         return toyResponseList;
     }

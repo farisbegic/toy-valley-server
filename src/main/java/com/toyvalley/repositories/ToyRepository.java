@@ -10,4 +10,6 @@ import java.util.List;
 public interface ToyRepository extends JpaRepository<Toy, Long> {
     @Query("SELECT DISTINCT t FROM Toy t, ToyCategory tc WHERE t = tc.toy AND tc.category.id = :categoryId")
     List<Toy> getToysByCategoryId(@Param("categoryId") long categoryId);
+    @Query("SELECT t FROM Toy t WHERE upper(t.name) LIKE upper(concat('%', :name, '%'))")
+    List<Toy> getToysByName(@Param("name") String name);
 }
