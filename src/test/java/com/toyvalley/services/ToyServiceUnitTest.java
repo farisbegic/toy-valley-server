@@ -1,6 +1,7 @@
 package com.toyvalley.services;
 
 import com.toyvalley.data.ToyTest;
+import com.toyvalley.models.data.toy.CreateToyRequest;
 import com.toyvalley.models.data.toy.ToyResponse;
 import com.toyvalley.models.entities.Toy;
 import com.toyvalley.repositories.ToyRepository;
@@ -19,7 +20,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @RunWith(SpringRunner.class)
 public class ToyServiceUnitTest {
@@ -70,5 +73,42 @@ public class ToyServiceUnitTest {
         assertThatThrownBy(() -> toyService.getToy(2L))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessageContaining("not found");
+    }
+
+    @Test
+    public void givenToy_whenCreate_thenToyReturned() {
+        Toy inputToy = ToyTest.toy();
+        Toy outputToy = ToyTest.toy();
+        inputToy.setId(0L);
+        Mockito.when(toyRepository.save(inputToy)).thenReturn(outputToy);
+
+        CreateToyRequest requestToy = new CreateToyRequest(inputToy.getName(), inputToy.getDescription(), inputToy.getBrand(),inputToy.getGender(), inputToy.getCondition(),inputToy.getAge(), inputToy.getDatePurchased());
+        ToyResponse returnedToy = toyService.createToy(requestToy);
+
+        assertThat(returnedToy).isNotNull();
+        assertThat(returnedToy.getName()).isEqualTo(inputToy.getName());
+    }
+
+    @Test
+    public void givenToy_whenCreate_thenAssignId() {
+        Toy inputToy = ToyTest.toy();
+        Toy outputToy = ToyTest.toy();
+        inputToy.setId(0L);
+        Mockito.when(toyRepository.save(inputToy)).thenReturn(outputToy);
+
+        CreateToyRequest requestToy = new CreateToyRequest(inputToy.getName(), inputToy.getDescription(), inputToy.getBrand(),inputToy.getGender(), inputToy.getCondition(),inputToy.getAge(), inputToy.getDatePurchased());
+        ToyResponse returnedToy = toyService.createToy(requestToy);
+
+        assertThat(returnedToy.getId()).isNotEqualTo(0L);
+    }
+
+    @Test
+    public void givenToy_whenCreate_thenRepositoryCalled() {
+        Toy inputToy = ToyTest.toy();
+
+        CreateToyRequest requestToy = new CreateToyRequest(inputToy.getName(), inputToy.getDescription(), inputToy.getBrand(),inputToy.getGender(), inputToy.getCondition(),inputToy.getAge(), inputToy.getDatePurchased());
+        toyService.createToy(requestToy);
+
+        verify(toyRepository, times(1)).save(inputToy);
     }
 }
