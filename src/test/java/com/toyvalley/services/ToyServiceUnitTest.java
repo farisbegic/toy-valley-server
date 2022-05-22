@@ -111,4 +111,14 @@ public class ToyServiceUnitTest {
 
         verify(toyRepository, times(1)).save(inputToy);
     }
+
+    @Test
+    public void givenToy_whenDelete_thenRepositoryCalled() {
+        long id = 1L;
+
+        toyService.deleteToy(id);
+
+        verify(toyRepository, times(1)).deleteById(id);
+
+    }
 }
