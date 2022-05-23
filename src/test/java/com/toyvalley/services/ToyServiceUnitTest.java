@@ -120,7 +120,6 @@ public class ToyServiceUnitTest {
         toyService.deleteToy(id);
 
         verify(toyRepository, times(1)).deleteById(id);
-
     }
 
     @Test
@@ -148,5 +147,23 @@ public class ToyServiceUnitTest {
         assertThatThrownBy(() -> toyService.updateToy(2L, updateToy))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessageContaining("not found");
+    }
+
+    @Test
+    public void givenValidCategoryId_whenGetToyByCategory_thenToysReturned() {
+        ArrayList<Toy> toyResponse = new ArrayList<>();
+        long id = 1L;
+        toyResponse.add(ToyTest.toy());
+        Mockito.when(toyRepository.getToysByCategoryId(id)).thenReturn(toyResponse);
+
+        List<ToyResponse> returnedItems = toyService.getToyByCategory(id);
+
+        assertThat(returnedItems).hasSize(1);
+    }
+
+    @Test
+    public void givenInvalidCategoryId_whenGetToyByCategory_thenNoToysReturned() {
+        long id = 1L;
+        assertThat(toyService.getToyByCategory(id)).isEmpty();
     }
 }
