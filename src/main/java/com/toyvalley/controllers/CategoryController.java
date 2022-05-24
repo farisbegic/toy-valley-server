@@ -3,6 +3,7 @@ package com.toyvalley.controllers;
 import com.toyvalley.models.data.category.CategoryResponse;
 import com.toyvalley.models.data.category.CreateCategoryRequest;
 import com.toyvalley.models.data.category.UpdateCategoryRequest;
+import com.toyvalley.models.entities.Category;
 import com.toyvalley.services.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,13 +33,13 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoryResponse> createCategory(@RequestBody CreateCategoryRequest category) {
+    public ResponseEntity<CategoryResponse> createCategory(@RequestBody Category category) {
         return new ResponseEntity<>(this.categoryService.createCategory(category), HttpStatus.OK);
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryResponse> updateCategory(@PathVariable long id, @RequestBody UpdateCategoryRequest category) {
+    public ResponseEntity<CategoryResponse> updateCategory(@PathVariable long id, @RequestBody Category category) {
         CategoryResponse response = this.categoryService.updateCategory(id, category);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

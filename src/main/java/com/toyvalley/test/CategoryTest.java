@@ -1,4 +1,5 @@
-package com.toyvalley.models.data.category;
+package com.toyvalley.test;
+import com.toyvalley.models.entities.Category;
 import com.toyvalley.models.enums.CategoryName;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
