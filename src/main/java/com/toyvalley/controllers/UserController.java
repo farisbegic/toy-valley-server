@@ -40,8 +40,9 @@ public class UserController {
         return new ResponseEntity<>(this.userService.updateUser(id, user), HttpStatus.OK);
     }
 
-    /*@DeleteMapping("/{id}")
-    public ResponseEntity<UserResponse> deactivateUser(@PathVariable long id) {
-      return new ResponseEntity<>(this.userService.deactivateUser(id), HttpStatus.OK);
-    }*/
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteUser(@PathVariable long id) {
+      this.userService.deleteUser(id);
+      return new ResponseEntity(HttpStatus.OK);
+    }
 }

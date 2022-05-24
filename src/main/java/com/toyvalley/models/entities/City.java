@@ -22,6 +22,6 @@ public class City {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
+    @OneToMany(mappedBy = "city")
     private List<User> users;
 }

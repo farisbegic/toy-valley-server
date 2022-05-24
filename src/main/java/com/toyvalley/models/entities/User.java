@@ -42,7 +42,7 @@ public class User {
   private boolean active;
 
   @ManyToOne
-  @JoinColumn(referencedColumnName = "id")
+  @JoinColumn(name="city", referencedColumnName = "id")
   private City city;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
