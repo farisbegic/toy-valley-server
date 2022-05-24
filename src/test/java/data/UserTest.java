@@ -22,4 +22,19 @@ public class UserTest {
     user.setPassword("Pass123456");
     return user;
   }
+
+  public static CreateUserRequest createUserRequest() {
+    CreateUserRequest user = new CreateUserRequest();
+    user.setName("Azra");
+    user.setSurname("Kurtic");
+    user.setPhone("123456");
+    user.setAddress("Address 1");
+    City city = new City();
+    city.setId(1L);
+    city.setName("Sarajevo");
+    user.setCity(city);
+    user.setEmail("azra@gmail.com");
+    user.setPassword("Pass123456");
+    return user;
+  }
 }

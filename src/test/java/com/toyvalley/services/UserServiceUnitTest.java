@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @RunWith(SpringRunner.class)
 public class UserServiceUnitTest {
@@ -61,5 +64,33 @@ public class UserServiceUnitTest {
       .isEqualTo(user.getName());
   }
 
-  
+  @Test
+  public void givenInvalidId_whenGetById_thenExceptionShouldBeThrown() {
+    assertThatThrownBy(() -> userService.getUser(32L))
+      .isInstanceOf(RuntimeException.class)
+      .hasMessageContaining("User with id " + 32 + " is not found");
+  }
+
+  /*@Test
+  public void givenUser_whenCreate_thenIdAssigned() {
+    CreateUserRequest inputUser = UserTest.createUserRequest();
+
+    User outputUser = UserTest.user();
+
+    Mockito.when(userRepository.save(outputUser))
+      .thenReturn(outputUser);
+
+    UserResponse resultUser = userService.createUser(inputUser);
+
+    assertThat(resultUser.getId()).isNotEqualTo(0L);
+  }*/
+
+  @Test
+  public void givenUser_whenDelete_thenRepositoryCalled() {
+    long id = 2L;
+
+    userService.deleteUser(id);
+
+    verify(userRepository, times(1)).deleteById(id);
+  }
 }
