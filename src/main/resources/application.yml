@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:${DB_PORT:5432}/toy_valley
+    url: jdbc:postgresql://localhost:${DB_PORT:5432}/${DB_NAME:toy_valley}
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:postgres}
   jpa:
@@ -15,3 +15,8 @@ spring:
   data:
     jpa:
       repositories.enabled: true
+
+service:
+  ui:
+    url: ${FRONTEND_URL:http://localhost:4200}
+
