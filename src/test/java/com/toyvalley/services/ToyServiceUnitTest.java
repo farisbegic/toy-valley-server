@@ -22,6 +22,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -80,8 +81,8 @@ public class ToyServiceUnitTest {
     public void givenToy_whenCreate_thenToyReturned() {
         Toy inputToy = ToyTest.toy();
         Toy outputToy = ToyTest.toy();
-        inputToy.setId(0L);
-        Mockito.when(toyRepository.save(inputToy)).thenReturn(outputToy);
+
+        Mockito.when(toyRepository.save(any(Toy.class))).thenReturn(outputToy);
 
         CreateToyRequest requestToy = new CreateToyRequest(inputToy.getName(), inputToy.getDescription(), inputToy.getBrand(),inputToy.getGender(), inputToy.getCondition(),inputToy.getAge(), inputToy.getDatePurchased());
         ToyResponse returnedToy = toyService.createToy(requestToy);
@@ -93,9 +94,10 @@ public class ToyServiceUnitTest {
     @Test
     public void givenToy_whenCreate_thenAssignId() {
         Toy inputToy = ToyTest.toy();
-        Toy outputToy = ToyTest.toy();
         inputToy.setId(0L);
-        Mockito.when(toyRepository.save(inputToy)).thenReturn(outputToy);
+        Toy outputToy = ToyTest.toy();
+
+        Mockito.when(toyRepository.save(any(Toy.class))).thenReturn(outputToy);
 
         CreateToyRequest requestToy = new CreateToyRequest(inputToy.getName(), inputToy.getDescription(), inputToy.getBrand(),inputToy.getGender(), inputToy.getCondition(),inputToy.getAge(), inputToy.getDatePurchased());
         ToyResponse returnedToy = toyService.createToy(requestToy);
@@ -106,11 +108,14 @@ public class ToyServiceUnitTest {
     @Test
     public void givenToy_whenCreate_thenRepositoryCalled() {
         Toy inputToy = ToyTest.toy();
+        Toy outputToy = ToyTest.toy();
+
+        Mockito.when(toyRepository.save(any(Toy.class))).thenReturn(outputToy);
 
         CreateToyRequest requestToy = new CreateToyRequest(inputToy.getName(), inputToy.getDescription(), inputToy.getBrand(),inputToy.getGender(), inputToy.getCondition(),inputToy.getAge(), inputToy.getDatePurchased());
         toyService.createToy(requestToy);
 
-        verify(toyRepository, times(1)).save(inputToy);
+        verify(toyRepository, times(1)).save(any(Toy.class));
     }
 
     @Test
