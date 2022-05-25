@@ -84,7 +84,7 @@ public class ToyServiceUnitTest {
 
         Mockito.when(toyRepository.save(any(Toy.class))).thenReturn(outputToy);
 
-        CreateToyRequest requestToy = new CreateToyRequest(inputToy.getName(), inputToy.getDescription(), inputToy.getBrand(),inputToy.getGender(), inputToy.getCondition(),inputToy.getAge(), inputToy.getDatePurchased());
+        CreateToyRequest requestToy = ToyTest.createToyRequest(inputToy);
         ToyResponse returnedToy = toyService.createToy(requestToy);
 
         assertThat(returnedToy).isNotNull();
@@ -99,7 +99,7 @@ public class ToyServiceUnitTest {
 
         Mockito.when(toyRepository.save(any(Toy.class))).thenReturn(outputToy);
 
-        CreateToyRequest requestToy = new CreateToyRequest(inputToy.getName(), inputToy.getDescription(), inputToy.getBrand(),inputToy.getGender(), inputToy.getCondition(),inputToy.getAge(), inputToy.getDatePurchased());
+        CreateToyRequest requestToy = ToyTest.createToyRequest(inputToy);
         ToyResponse returnedToy = toyService.createToy(requestToy);
 
         assertThat(returnedToy.getId()).isNotEqualTo(0L);
@@ -112,7 +112,7 @@ public class ToyServiceUnitTest {
 
         Mockito.when(toyRepository.save(any(Toy.class))).thenReturn(outputToy);
 
-        CreateToyRequest requestToy = new CreateToyRequest(inputToy.getName(), inputToy.getDescription(), inputToy.getBrand(),inputToy.getGender(), inputToy.getCondition(),inputToy.getAge(), inputToy.getDatePurchased());
+        CreateToyRequest requestToy = ToyTest.createToyRequest(inputToy);
         toyService.createToy(requestToy);
 
         verify(toyRepository, times(1)).save(any(Toy.class));
@@ -137,7 +137,7 @@ public class ToyServiceUnitTest {
         Mockito.when(toyRepository.findById(id)).thenReturn(Optional.of(outputToy));
         Mockito.when(toyRepository.save(inputToy)).thenReturn(outputToy);
 
-        UpdateToyRequest updateToy = new UpdateToyRequest(inputToy.getName(), inputToy.getDescription(), inputToy.getBrand(), inputToy.getGender(), inputToy.getCondition(), inputToy.getAge(), inputToy.isActive(), inputToy.getDatePurchased());
+        UpdateToyRequest updateToy = ToyTest.updateToyRequest(inputToy);
         ToyResponse returnedToy = toyService.updateToy(id, updateToy);
 
         assertThat(returnedToy).isNotNull();
@@ -148,7 +148,7 @@ public class ToyServiceUnitTest {
     @Test
     public void givenInvalidId_whenUpdate_thenExceptionShouldBeThrown() {
         Toy inputToy = ToyTest.toy();
-        UpdateToyRequest updateToy = new UpdateToyRequest(inputToy.getName(), inputToy.getDescription(), inputToy.getBrand(), inputToy.getGender(), inputToy.getCondition(), inputToy.getAge(), inputToy.isActive(), inputToy.getDatePurchased());
+        UpdateToyRequest updateToy = ToyTest.updateToyRequest(inputToy);
         assertThatThrownBy(() -> toyService.updateToy(2L, updateToy))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessageContaining("not found");
