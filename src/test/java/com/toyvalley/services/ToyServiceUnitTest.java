@@ -2,6 +2,7 @@ package com.toyvalley.services;
 
 import com.toyvalley.data.ToyTest;
 import com.toyvalley.models.data.toy.CreateToyRequest;
+import com.toyvalley.models.data.toy.SearchToyResponse;
 import com.toyvalley.models.data.toy.ToyResponse;
 import com.toyvalley.models.data.toy.UpdateToyRequest;
 import com.toyvalley.models.entities.Toy;
@@ -170,5 +171,23 @@ public class ToyServiceUnitTest {
     public void givenInvalidCategoryId_whenGetToyByCategory_thenNoToysReturned() {
         long id = 1L;
         assertThat(toyService.getToyByCategory(id)).isEmpty();
+    }
+
+    @Test
+    public void givenValidName_whenGetToyByName_thenToysReturned() {
+        String name = "Star Wars";
+        ArrayList<Toy> toyResponse = new ArrayList<>();
+        toyResponse.add(ToyTest.toy());
+        Mockito.when(toyRepository.getToysByName(name)).thenReturn(toyResponse);
+
+        List<SearchToyResponse> returnedItems = toyService.getToyByName(name);
+
+        assertThat(returnedItems).hasSize(1);
+    }
+
+    @Test
+    public void givenInvalidName_whenGetToysByName_thenNoToysReturned() {
+        String name = "Star Wars";
+        assertThat(toyService.getToyByName(name)).isEmpty();
     }
 }
