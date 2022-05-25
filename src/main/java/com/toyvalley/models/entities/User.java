@@ -42,15 +42,16 @@ public class User {
   private boolean active;
 
   @ManyToOne
+  @JoinColumn(name="city", referencedColumnName = "id")
   private City city;
 
-  @OneToMany(mappedBy = "user")
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
   private List<Preference> preferences;
 
-  @OneToMany(mappedBy = "user")
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
   private List<Toy> toys;
 
-  public User(String name, String surname, String phone, String address, City city, String email, String password) {
+  public User(String name, String surname, String phone, String address , City city, String email, String password) {
     this.name = name;
     this.surname = surname;
     this.phone = phone;

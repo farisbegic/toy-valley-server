@@ -19,11 +19,9 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private final List<User> userList;
     private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
-        userList = new ArrayList<>();
         this.userRepository = userRepository;
     }
 
@@ -76,9 +74,9 @@ public class UserService {
       }
 
       throw new RuntimeException("User with id " + id + " is not found");
-    }
+    }*/
 
     public void deleteUser(long id) {
-      userRepository.setUserActivity(false, id);
-    }*/
+      userRepository.deleteById(id);
+    }
 }
