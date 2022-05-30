@@ -1,6 +1,8 @@
 package com.toyvalley.services;
 
 import com.toyvalley.models.data.category.CategoryResponse;
+import com.toyvalley.models.data.category.CreateCategoryRequest;
+import com.toyvalley.models.data.category.UpdateCategoryRequest;
 import com.toyvalley.models.entities.Category;
 import com.toyvalley.models.enums.CategoryName;
 import com.toyvalley.repositories.CategoryRepository;
@@ -47,13 +49,13 @@ public class CategoryService {
     }
 
 
-    public CategoryResponse createCategory(Category category) {
+    public CategoryResponse createCategory(CreateCategoryRequest category) {
         Category categoryEntity = new Category(category.getName(), category.getDescription());
         Category newCategory = categoryRepository.save(categoryEntity);
         return new CategoryResponse(newCategory.getId(), newCategory.getName(), newCategory.getDescription());
     }
 
-    public CategoryResponse updateCategory(long id, Category category) {
+    public CategoryResponse updateCategory(long id, UpdateCategoryRequest category) {
         Optional<Category> categoryOptional = categoryRepository.findById(id);
 
         if (categoryOptional.isPresent()) {

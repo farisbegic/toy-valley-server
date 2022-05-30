@@ -33,13 +33,13 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoryResponse> createCategory(@RequestBody Category category) {
+    public ResponseEntity<CategoryResponse> createCategory(@RequestBody CreateCategoryRequest category) {
         return new ResponseEntity<>(this.categoryService.createCategory(category), HttpStatus.OK);
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryResponse> updateCategory(@PathVariable long id, @RequestBody Category category) {
+    public ResponseEntity<CategoryResponse> updateCategory(@PathVariable long id, @RequestBody UpdateCategoryRequest category) {
         CategoryResponse response = this.categoryService.updateCategory(id, category);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

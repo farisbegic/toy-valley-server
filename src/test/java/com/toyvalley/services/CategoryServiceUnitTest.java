@@ -1,7 +1,11 @@
-package com.toyvalley.test;
+package com.toyvalley.services;
 
+import com.toyvalley.data.CategoryTest;
 import com.toyvalley.models.data.category.CategoryResponse;
+import com.toyvalley.models.data.category.CreateCategoryRequest;
+import com.toyvalley.models.data.category.UpdateCategoryRequest;
 import com.toyvalley.models.entities.Category;
+
 import com.toyvalley.models.enums.CategoryName;
 import com.toyvalley.repositories.CategoryRepository;
 import com.toyvalley.services.CategoryService;
@@ -21,6 +25,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -45,8 +50,9 @@ public class CategoryServiceUnitTest {
 
     @Test
     public void givenCategories_whenGetCategories_thenListShouldBeFound() {
-        Mockito.when(categoryRepository.findAll())
-                .thenReturn(List.of(CategoryTest.category()));
+        ArrayList<Category> categoryResponse = new ArrayList<>();
+        categoryResponse.add(CategoryTest.category());
+        Mockito.when(categoryRepository.findAll()).thenReturn(categoryResponse);
 
         List<CategoryResponse> returnedList = categoryService.getCategories();
 
@@ -70,13 +76,14 @@ public class CategoryServiceUnitTest {
 
         assertThat(resultCategory.getName())
                 .isEqualTo(category.getName());
+
     }
 
     @Test
     public void givenInvalidId_whenGetById_thenExceptionShouldBeThrown() {
         assertThatThrownBy(() -> categoryService.getCategory(8L))
                 .isInstanceOf(RuntimeException.class)
-                .hasMessageContaining("does not exist");
+                .hasMessageContaining("not found");
     }
 
     @Test
@@ -85,38 +92,30 @@ public class CategoryServiceUnitTest {
         inputCategory.setId(0L);
         Category outputCategory = CategoryTest.category();
 
-        Mockito.when(categoryRepository.save(inputCategory))
+        Mockito.when(categoryRepository.save(any(Category.class)))
                 .thenReturn(outputCategory);
 
-        CategoryResponse resultCategory = categoryService.createCategory(inputCategory);
+        CreateCategoryRequest requestCategory = CategoryTest.createCategoryRequest(inputCategory);
+        CategoryResponse resultCategory = categoryService.createCategory(requestCategory);
+
 
         assertThat(resultCategory.getId()).isNotEqualTo(0L);
     }
 
     @Test
-    public void givenCategory_whenCreate_thenCategoryReturned() {
-
-        Category inputCategory = CategoryTest.category();
-        inputCategory.setId(0L);
-        Category outputCategory = CategoryTest.category();
-
-        Mockito.when(categoryRepository.save(inputCategory))
-                .thenReturn(outputCategory);
-
-        CategoryResponse resultCategory = categoryService.createCategory(inputCategory);
-
-        assertThat(resultCategory).isNotNull();
-        assertThat(resultCategory.getName()).isEqualTo(inputCategory.getName());
-    }
-
-    @Test
     public void givenCategory_whenCreate_thenRepositoryCalled() {
 
-        Category category = CategoryTest.category();
+        Category inputCategory = CategoryTest.category();
+        Category outputCategory = CategoryTest.category();
 
-        categoryService.createCategory(category);
 
-        verify(categoryRepository, times(1)).save(category);
+        Mockito.when(categoryRepository.save(any(Category.class)))
+                        .thenReturn(outputCategory);
+
+        CreateCategoryRequest requestCategory = CategoryTest.createCategoryRequest(inputCategory);
+        categoryService.createCategory(requestCategory);
+
+        verify(categoryRepository, times(1)).save(any(Category.class));
     }
 
     @Test
@@ -133,8 +132,8 @@ public class CategoryServiceUnitTest {
         Mockito.when(categoryRepository.save(inputCategory))
                 .thenReturn(outputCategory);
 
-        CategoryResponse resultCategory = categoryService.updateCategory(id, inputCategory);
-
+        UpdateCategoryRequest updateCategory = CategoryTest.updateCategoryRequest(inputCategory);
+        CategoryResponse resultCategory = categoryService.updateCategory(id, updateCategory);
 
         assertThat(resultCategory).isNotNull();
         assertThat(resultCategory.getName()).isEqualTo(inputCategory.getName());
@@ -143,9 +142,11 @@ public class CategoryServiceUnitTest {
 
     @Test
     public void givenInvalidId_whenUpdate_thenExceptionShouldBeThrown() {
-        assertThatThrownBy(() -> categoryService.updateCategory(5L, CategoryTest.category()))
+       Category inputCategory = CategoryTest.category();
+       UpdateCategoryRequest updateCategory = CategoryTest.updateCategoryRequest(inputCategory);
+        assertThatThrownBy(() -> categoryService.updateCategory(5L, updateCategory))
                 .isInstanceOf(RuntimeException.class)
-                .hasMessageContaining("does not exist");
+                .hasMessageContaining("not found");
     }
 
     @Test
@@ -193,20 +194,7 @@ public class CategoryServiceUnitTest {
     }
 
     @Test
-     void givenNonexistingCategory_whenDeleted_thenExceptionFound() {
-
-        long id = 5L;
-
-        Mockito.when(categoryRepository.findById(id)).thenThrow(new Exception());
-        try {
-            categoryService.deleteCategory(id);
-        } catch (Exception e) {
-            assertThat(Exception.class).isEqualTo(e.getClass());
-        }
-    }
-
-    @Test
-    void givenExistingCategory_whenDeleted_thenSuccess() {
+    public void givenExistingCategory_whenDeleted_thenSuccess() {
 
         Category inputCategory = CategoryTest.category();
         inputCategory.setId(0L);
