@@ -7,7 +7,6 @@ import com.toyvalley.models.data.user.UserResponse;
 import com.toyvalley.models.entities.User;
 import com.toyvalley.repositories.UserRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
