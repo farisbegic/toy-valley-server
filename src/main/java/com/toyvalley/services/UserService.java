@@ -78,6 +78,7 @@ public class UserService {
 
     public List<TopTraders> getTopTraders() {
         List<TopTraders> topTradersList = userRepository.findTopTraders();
-        return topTradersList;
+        int limit = (Math.min(topTradersList.size(), 10));
+        return topTradersList.subList(0, limit);
     }
 }
