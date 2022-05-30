@@ -70,6 +70,5 @@ public class User {
     this.city = city;
     this.email = email;
     this.password = password;
-    this.active = active;
-    }
+  }
 }
