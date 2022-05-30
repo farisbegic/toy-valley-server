@@ -18,7 +18,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
   @Query("select u.id, u.name, u.surname, u.phone, u.address, u.city, u.email, u.password from User u where u.active = true")
   List<User> findActiveUsers();
 
-  @Query("select new com.toyvalley.models.data.user.TopTraders(u.id, u.name, u.surname, count(ex.id)) from User u, Toy t, ExchangeRequest ex where t.user = u AND ex.toy_offered = t GROUP BY u.id")
+  @Query("select new com.toyvalley.models.data.user.TopTraders(u.id, u.name, u.surname, count(ex.id)) from User u, Toy t, ExchangeRequest ex where t.user = u AND ex.toy_offered = t GROUP BY u.id ORDER BY count(ex.id) DESC")
   List<TopTraders> findTopTraders();
 
 }
