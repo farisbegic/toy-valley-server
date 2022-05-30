@@ -1,6 +1,7 @@
 package com.toyvalley.controllers;
 
 import com.toyvalley.models.data.user.CreateUserRequest;
+import com.toyvalley.models.data.user.TopTraders;
 import com.toyvalley.models.data.user.UpdateUserRequest;
 import com.toyvalley.models.data.user.UserResponse;
 import com.toyvalley.services.UserService;
@@ -44,5 +45,11 @@ public class UserController {
     public ResponseEntity deleteUser(@PathVariable long id) {
       this.userService.deleteUser(id);
       return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping("/top-traders")
+    public ResponseEntity<List<TopTraders>> getTopTraders() {
+        List<TopTraders> topTraders = this.userService.getTopTraders();
+        return new ResponseEntity<>(topTraders, HttpStatus.OK);
     }
 }
