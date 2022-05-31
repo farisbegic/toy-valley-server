@@ -178,9 +178,8 @@ public class ToyServiceUnitTest {
         String name = "Star Wars";
         ArrayList<Toy> toyResponse = new ArrayList<>();
         toyResponse.add(ToyTest.toy());
-        Mockito.when(toyRepository.getToysByName(name)).thenReturn(toyResponse);
-
         List<SearchToyResponse> returnedItems = toyService.getToyByName(name);
+        Mockito.when(toyRepository.getToysByName(name)).thenReturn(returnedItems);
 
         assertThat(returnedItems).hasSize(1);
     }

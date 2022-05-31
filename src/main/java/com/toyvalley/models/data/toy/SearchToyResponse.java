@@ -1,14 +1,11 @@
 package com.toyvalley.models.data.toy;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class SearchToyResponse {
     private long id;
     private String name;
-
-    public SearchToyResponse(long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 }

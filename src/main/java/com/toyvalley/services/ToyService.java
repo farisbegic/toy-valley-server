@@ -77,11 +77,7 @@ public class ToyService {
     }
 
     public List<SearchToyResponse> getToyByName(String name) {
-        ArrayList<SearchToyResponse> toyResponseList = new ArrayList<>();
-        List<Toy> toysList = toyRepository.getToysByName(name);
-        for (Toy toy : toysList) {
-            toyResponseList.add(new SearchToyResponse(toy.getId(), toy.getName()));
-        }
+        List<SearchToyResponse> toyResponseList = toyRepository.getToysByName(name);
         return toyResponseList;
     }
 }
