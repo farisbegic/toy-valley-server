@@ -1,5 +1,6 @@
 package com.toyvalley.models.entities;
 
+import com.toyvalley.models.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -51,6 +52,9 @@ public class User {
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
   private List<Toy> toys;
 
+  @Column(name = "admin")
+  private UserRole admin;
+
   public User(String name, String surname, String phone, String address , City city, String email, String password) {
     this.name = name;
     this.surname = surname;
@@ -60,6 +64,7 @@ public class User {
     this.email = email;
     this.password = password;
     this.active = true;
+    this.admin = UserRole.user;
   }
 
   public void update(String name, String surname, String phone, String address, City city, String email, String password) {

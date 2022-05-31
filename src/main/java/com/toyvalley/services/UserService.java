@@ -1,5 +1,6 @@
 package com.toyvalley.services;
 
+import com.toyvalley.models.data.city.CityResponse;
 import com.toyvalley.models.data.toy.ToyResponse;
 import com.toyvalley.models.data.user.CreateUserRequest;
 import com.toyvalley.models.data.user.UpdateUserRequest;
@@ -12,9 +13,12 @@ import org.hibernate.sql.Update;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
 public class UserService {
@@ -32,7 +36,7 @@ public class UserService {
       ArrayList<UserResponse> responseList = new ArrayList<>();
 
       for (User user : users) {
-        responseList.add(new UserResponse(user.getId(), user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), user.getCity(), user.getEmail(), user.getPassword()));
+        responseList.add(new UserResponse(user.getId(), user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), new CityResponse(user.getCity().getId(), user.getCity().getName()), user.getEmail(), user.getPassword()));
       }
 
       return responseList;
@@ -42,7 +46,7 @@ public class UserService {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isPresent()) {
           User user = userOptional.get();
-          return new UserResponse(user.getId(), user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), user.getCity(), user.getEmail(), user.getPassword());
+          return new UserResponse(user.getId(), user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), new CityResponse(user.getCity().getId(), user.getCity().getName()), user.getEmail(), user.getPassword());
         }
         throw new RuntimeException("User with id " + id + " is not found");
     }
@@ -50,8 +54,9 @@ public class UserService {
     public UserResponse createUser(CreateUserRequest user) {
       User userEntity = new User(user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), user.getCity(), user.getEmail(), user.getPassword());
       User newUser = userRepository.save(userEntity);
-      return new UserResponse(newUser.getId(), newUser.getName(), newUser.getSurname(), newUser.getPhone(), newUser.getAddress(), newUser.getCity(), newUser.getEmail(), newUser.getPassword());
+      return new UserResponse(newUser.getId(), newUser.getName(), newUser.getSurname(), newUser.getPhone(), newUser.getAddress(), new CityResponse(newUser.getCity().getId(), newUser.getCity().getName()), newUser.getEmail(), newUser.getPassword());
     }
+
 
     public UserResponse updateUser(long id, UpdateUserRequest user) {
 
@@ -61,7 +66,7 @@ public class UserService {
         User userEntity = userOptional.get();
         userEntity.update(user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), user.getCity(), user.getEmail(), user.getPassword());
         userRepository.save(userEntity);
-        return new UserResponse(userEntity.getId(), userEntity.getName(), userEntity.getSurname(), userEntity.getPhone(), userEntity.getAddress(), userEntity.getCity(), userEntity.getEmail(), userEntity.getPassword());
+        return new UserResponse(userEntity.getId(), userEntity.getName(), userEntity.getSurname(), userEntity.getPhone(), userEntity.getAddress(), new CityResponse(userEntity.getCity().getId(), userEntity.getCity().getName()), userEntity.getEmail(), userEntity.getPassword());
       }
 
       throw new RuntimeException("User with id " + id + " is not found");
