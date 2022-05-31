@@ -66,6 +66,19 @@ public class Toy {
     @OneToMany(mappedBy = "toy")
     private List<ToyImage> toyImages;
 
+    public Toy(long id, String name, String description, String brand, Gender gender, Condition condition, int age, Date datePurchased) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.brand = brand;
+        this.gender = gender;
+        this.condition = condition;
+        this.age = age;
+        this.isActive = true;
+        this.datePosted = new Date();
+        this.datePurchased = datePurchased;
+    }
+
     public Toy(String name, String description, String brand, Gender gender, Condition condition, int age, Date datePurchased) {
         this.name = name;
         this.description = description;

@@ -33,6 +33,12 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<ToyCategory> toyCategories;
 
+    public Category(long id, CategoryName name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
     public Category(CategoryName name, String description) {
         this.name = name;
         this.description = description;

@@ -1,6 +1,7 @@
 package com.toyvalley.controllers;
 
 import com.toyvalley.models.data.toy.CreateToyRequest;
+import com.toyvalley.models.data.toy.SearchToyResponse;
 import com.toyvalley.models.data.toy.ToyResponse;
 import com.toyvalley.models.data.toy.UpdateToyRequest;
 import com.toyvalley.services.ToyService;
@@ -32,6 +33,11 @@ public class ToyController {
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<List<ToyResponse>> getToyByCategoryId(@PathVariable long categoryId) {
         return new ResponseEntity<>(this.toyService.getToyByCategory(categoryId), HttpStatus.OK);
+    }
+
+    @GetMapping("/search/{toyName}")
+    public ResponseEntity<List<SearchToyResponse>> getToyBySearchName(@PathVariable String toyName) {
+        return new ResponseEntity<>(this.toyService.getToyByName(toyName), HttpStatus.OK);
     }
 
     @PostMapping

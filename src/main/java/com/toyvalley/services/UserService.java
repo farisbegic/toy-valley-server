@@ -3,6 +3,7 @@ package com.toyvalley.services;
 import com.toyvalley.models.data.city.CityResponse;
 import com.toyvalley.models.data.toy.ToyResponse;
 import com.toyvalley.models.data.user.CreateUserRequest;
+import com.toyvalley.models.data.user.TopTraders;
 import com.toyvalley.models.data.user.UpdateUserRequest;
 import com.toyvalley.models.data.user.UserResponse;
 import com.toyvalley.models.entities.City;
@@ -17,8 +18,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
 public class UserService {
@@ -81,9 +80,15 @@ public class UserService {
       }
 
       throw new RuntimeException("User with id " + id + " is not found");
-    }
+    }*/
 
     public void deleteUser(long id) {
-      userRepository.setUserActivity(false, id);
-    }*/
+      userRepository.deleteById(id);
+    }
+
+    public List<TopTraders> getTopTraders() {
+        List<TopTraders> topTradersList = userRepository.findTopTraders();
+        int limit = (Math.min(topTradersList.size(), 10));
+        return topTradersList.subList(0, limit);
+    }
 }
