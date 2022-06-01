@@ -6,9 +6,11 @@ import com.toyvalley.models.data.toy.SearchToyResponse;
 import com.toyvalley.models.data.toy.ToyResponse;
 import com.toyvalley.models.data.toy.UpdateToyRequest;
 import com.toyvalley.models.entities.Toy;
+import com.toyvalley.repositories.CityRepository;
 import com.toyvalley.repositories.ToyRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -33,12 +35,15 @@ public class ToyServiceUnitTest {
     @MockBean
     private ToyRepository toyRepository;
 
+    @MockBean CityRepository cityRepository;
+
+
     @TestConfiguration
     static class ToyServiceTestContextConfiguration {
         @Bean
         @Primary
-        public ToyService toyService(ToyRepository toyRepository) {
-            return new ToyService(toyRepository);
+        public ToyService toyService(ToyRepository toyRepository, CityRepository cityRepository) {
+            return new ToyService(toyRepository, cityRepository);
         }
     }
 
