@@ -7,10 +7,8 @@ import com.toyvalley.models.data.category.CategoryResponse;
 import com.toyvalley.models.data.category.CreateCategoryRequest;
 import com.toyvalley.models.data.category.UpdateCategoryRequest;
 import com.toyvalley.models.entities.Category;
-
 import com.toyvalley.models.enums.CategoryName;
 import com.toyvalley.repositories.CategoryRepository;
-import com.toyvalley.services.CategoryService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
