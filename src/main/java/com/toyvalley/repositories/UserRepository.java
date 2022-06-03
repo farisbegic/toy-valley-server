@@ -6,9 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
   @Modifying
@@ -20,4 +22,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
   @Query("select new com.toyvalley.models.data.user.TopTraders(u.id, u.name, u.surname, count(ex.id)) from User u, Toy t, ExchangeRequest ex where t.user = u AND ex.toy_offered = t GROUP BY u.id ORDER BY count(ex.id) DESC")
   List<TopTraders> findTopTraders();
+
+  @Query("update User u set u.name = :username where u.name = :username")
+  User findFirstByUsername(@Param("username") String username);
+
 }
