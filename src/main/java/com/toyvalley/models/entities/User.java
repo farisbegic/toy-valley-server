@@ -45,10 +45,10 @@ public class User {
   @ManyToOne
   private City city;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+  @OneToMany(mappedBy = "user")
   private List<Preference> preferences;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+  @OneToMany(mappedBy = "user")
   private List<Toy> toys;
 
   @Column(name = "admin")

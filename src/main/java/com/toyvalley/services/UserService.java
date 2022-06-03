@@ -35,7 +35,7 @@ public class UserService {
       ArrayList<UserResponse> responseList = new ArrayList<>();
 
       for (User user : users) {
-        responseList.add(new UserResponse(user.getId(), user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), new CityResponse(user.getCity().getId(), user.getCity().getName()), user.getEmail(), user.getPassword()));
+        responseList.add(new UserResponse(user.getId(), user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), new CityResponse(user.getCity().getId(), user.getCity().getName()), user.getEmail()));
       }
 
       return responseList;
@@ -45,7 +45,7 @@ public class UserService {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isPresent()) {
           User user = userOptional.get();
-          return new UserResponse(user.getId(), user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), new CityResponse(user.getCity().getId(), user.getCity().getName()), user.getEmail(), user.getPassword());
+          return new UserResponse(user.getId(), user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), new CityResponse(user.getCity().getId(), user.getCity().getName()), user.getEmail());
         }
         throw new RuntimeException("User with id " + id + " is not found");
     }
@@ -53,7 +53,7 @@ public class UserService {
     public UserResponse createUser(CreateUserRequest user) {
       User userEntity = new User(user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), user.getCity(), user.getEmail(), user.getPassword());
       User newUser = userRepository.save(userEntity);
-      return new UserResponse(newUser.getId(), newUser.getName(), newUser.getSurname(), newUser.getPhone(), newUser.getAddress(), new CityResponse(newUser.getCity().getId(), newUser.getCity().getName()), newUser.getEmail(), newUser.getPassword());
+      return new UserResponse(newUser.getId(), newUser.getName(), newUser.getSurname(), newUser.getPhone(), newUser.getAddress(), new CityResponse(newUser.getCity().getId(), newUser.getCity().getName()), newUser.getEmail());
     }
 
 
@@ -65,7 +65,7 @@ public class UserService {
         User userEntity = userOptional.get();
         userEntity.update(user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), user.getCity(), user.getEmail(), user.getPassword());
         userRepository.save(userEntity);
-        return new UserResponse(userEntity.getId(), userEntity.getName(), userEntity.getSurname(), userEntity.getPhone(), userEntity.getAddress(), new CityResponse(userEntity.getCity().getId(), userEntity.getCity().getName()), userEntity.getEmail(), userEntity.getPassword());
+        return new UserResponse(userEntity.getId(), userEntity.getName(), userEntity.getSurname(), userEntity.getPhone(), userEntity.getAddress(), new CityResponse(userEntity.getCity().getId(), userEntity.getCity().getName()), userEntity.getEmail());
       }
 
       throw new RuntimeException("User with id " + id + " is not found");

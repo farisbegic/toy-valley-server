@@ -1,9 +1,6 @@
 package com.toyvalley.controllers;
 
-import com.toyvalley.models.data.toy.CreateToyRequest;
-import com.toyvalley.models.data.toy.SearchToyResponse;
-import com.toyvalley.models.data.toy.ToyResponse;
-import com.toyvalley.models.data.toy.UpdateToyRequest;
+import com.toyvalley.models.data.toy.*;
 import com.toyvalley.services.ToyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +23,7 @@ public class ToyController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ToyResponse> getToy(@PathVariable long id) {
+    public ResponseEntity<ToyDetailsResponse> getToy(@PathVariable long id) {
         return new ResponseEntity<>(this.toyService.getToy(id), HttpStatus.OK);
     }
 
@@ -38,6 +35,11 @@ public class ToyController {
     @GetMapping("/city/{cityId}")
     public ResponseEntity<List<ToyResponse>> getToyByCityId(@PathVariable long cityId) {
         return new ResponseEntity<>(this.toyService.getToyByCity(cityId), HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<ToyResponse>> getToyByUserId(@PathVariable long userId) {
+        return new ResponseEntity<>(this.toyService.getToyByUser(userId), HttpStatus.OK);
     }
 
     @GetMapping("/search/{toyName}")
