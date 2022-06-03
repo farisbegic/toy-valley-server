@@ -1,16 +1,11 @@
 package com.toyvalley.services;
 
-import com.toyvalley.data.ToyTest;
-import com.toyvalley.models.data.toy.CreateToyRequest;
-import com.toyvalley.models.data.toy.ToyResponse;
-import com.toyvalley.models.data.toy.UpdateToyRequest;
+import com.toyvalley.data.UserTest;
 import com.toyvalley.models.data.user.CreateUserRequest;
 import com.toyvalley.models.data.user.UpdateUserRequest;
 import com.toyvalley.models.data.user.UserResponse;
-import com.toyvalley.models.entities.Toy;
 import com.toyvalley.models.entities.User;
 import com.toyvalley.repositories.UserRepository;
-import com.toyvalley.data.UserTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;

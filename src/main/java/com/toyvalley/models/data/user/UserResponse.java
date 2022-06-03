@@ -1,6 +1,6 @@
 package com.toyvalley.models.data.user;
-import com.toyvalley.models.entities.City;
-import com.toyvalley.models.entities.User;
+
+import com.toyvalley.models.data.city.CityResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -12,7 +12,7 @@ public class UserResponse {
   private String surname;
   private String phone;
   private String address;
-  private City city;
+  private CityResponse city;
   private String email;
   private String password;
 }
