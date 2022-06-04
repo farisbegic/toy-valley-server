@@ -1,7 +1,6 @@
 package com.toyvalley.config;
 
 
-//import com.toyvalley.filters.JwtRequestFilter;
 import com.toyvalley.filters.JwtRequestFilter;
 import com.toyvalley.services.ToyValleyUserDetailService;
 import lombok.RequiredArgsConstructor;
@@ -31,12 +30,12 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // CSRF not needed
+
         http.csrf().disable()
-                // enabled cors
+             
                 .cors().and()
                 // don't authenticate this particular request
-                .authorizeRequests().antMatchers("/authenticate", "/users/top-traders", "/toys/city/*", "/toys/category/*", "/toys/*", "/toys/user/*").permitAll()
+                .authorizeRequests().antMatchers("/authenticate", "/users/top-traders", "/toys/city/*", "/toys/category/*", "/toys/*", "/toys/user/*", "/categories", "/toys/gender/*", "toys/condition/*").permitAll()
                 // all other requests need to be authenticated
                 .anyRequest().authenticated()
                 // exceptions handling
