@@ -1,10 +1,7 @@
 package com.toyvalley.services;
 
 import com.toyvalley.data.ToyTest;
-import com.toyvalley.models.data.toy.CreateToyRequest;
-import com.toyvalley.models.data.toy.SearchToyResponse;
-import com.toyvalley.models.data.toy.ToyResponse;
-import com.toyvalley.models.data.toy.UpdateToyRequest;
+import com.toyvalley.models.data.toy.*;
 import com.toyvalley.models.entities.Toy;
 import com.toyvalley.repositories.CityRepository;
 import com.toyvalley.repositories.ToyRepository;
@@ -70,7 +67,7 @@ public class ToyServiceUnitTest {
         Toy toy = ToyTest.toy();
         Mockito.when(toyRepository.findById(toy.getId())).thenReturn(Optional.of(toy));
 
-        ToyResponse returnedToy = toyService.getToy(toy.getId());
+        ToyDetailsResponse returnedToy = toyService.getToy(toy.getId());
 
         assertThat(returnedToy.getName()).isEqualTo(toy.getName());
     }

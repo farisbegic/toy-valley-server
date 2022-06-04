@@ -1,21 +1,26 @@
 package com.toyvalley.services;
 
-import com.toyvalley.models.data.toy.CreateToyRequest;
-import com.toyvalley.models.data.toy.SearchToyResponse;
-import com.toyvalley.models.data.toy.ToyResponse;
-import com.toyvalley.models.data.toy.UpdateToyRequest;
+import com.toyvalley.models.data.city.CityResponse;
+import com.toyvalley.models.data.toy.*;
+import com.toyvalley.models.data.user.UserResponse;
+import com.toyvalley.models.entities.City;
+import com.toyvalley.models.entities.Preference;
 import com.toyvalley.models.entities.Toy;
 import com.toyvalley.models.enums.Condition;
 import com.toyvalley.models.enums.Gender;
+import com.toyvalley.models.entities.User;
 import com.toyvalley.repositories.CityRepository;
 import com.toyvalley.repositories.ToyRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class ToyService {
     private final ToyRepository toyRepository;
     private final CityRepository cityRepository;
@@ -36,12 +41,24 @@ public class ToyService {
         return responseList;
     }
 
-    public ToyResponse getToy(long id) {
+    public ToyDetailsResponse getToy(long id) {
         Optional<Toy> toyOptional = toyRepository.findById(id);
 
         if (toyOptional.isPresent()) {
             Toy toy = toyOptional.get();
-            return new ToyResponse(toy.getId(), toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDatePurchased());
+
+            User toyUser = toy.getUser();
+            City toyCity = toy.getUser().getCity();
+
+            CityResponse cityResponse = new CityResponse(toyCity.getId(), toyCity.getName());
+            UserResponse userResponse = new UserResponse(toyUser.getId(), toyUser.getName(), toyUser.getSurname(), toyUser.getPhone(), toyUser.getAddress(), cityResponse, toyUser.getEmail());
+            List<String> preferences = new ArrayList<>();
+
+            for (Preference p : toy.getUser().getPreferences()) {
+                preferences.add(String.valueOf(p.getCategory().getName()));
+            }
+
+            return new ToyDetailsResponse(toy.getId(), toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDatePurchased(), userResponse, preferences);
         }
 
         throw new RuntimeException("Item with id " + id + " not found.");
@@ -84,6 +101,16 @@ public class ToyService {
     public List<ToyResponse> getToyByCity(long cityId) {
         ArrayList<ToyResponse> toyResponseList = new ArrayList<>();
         List<Toy> toysList = toyRepository.findToysByUser_CityId(cityId);
+
+        for (Toy toy : toysList) {
+            toyResponseList.add(new ToyResponse(toy.getId(), toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDatePurchased()));
+        }
+        return toyResponseList;
+    }
+
+    public List<ToyResponse> getToyByUser(long userId) {
+        ArrayList<ToyResponse> toyResponseList = new ArrayList<>();
+        List<Toy> toysList = toyRepository.findToysByUserId(userId);
 
         for (Toy toy : toysList) {
             toyResponseList.add(new ToyResponse(toy.getId(), toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDatePurchased()));

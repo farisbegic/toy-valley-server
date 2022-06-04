@@ -1,9 +1,6 @@
 package com.toyvalley.controllers;
 
-import com.toyvalley.models.data.toy.CreateToyRequest;
-import com.toyvalley.models.data.toy.SearchToyResponse;
-import com.toyvalley.models.data.toy.ToyResponse;
-import com.toyvalley.models.data.toy.UpdateToyRequest;
+import com.toyvalley.models.data.toy.*;
 import com.toyvalley.models.enums.Condition;
 import com.toyvalley.models.enums.Gender;
 import com.toyvalley.services.ToyService;
@@ -28,7 +25,7 @@ public class ToyController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ToyResponse> getToy(@PathVariable long id) {
+    public ResponseEntity<ToyDetailsResponse> getToy(@PathVariable long id) {
         return new ResponseEntity<>(this.toyService.getToy(id), HttpStatus.OK);
     }
 
@@ -50,6 +47,11 @@ public class ToyController {
     @GetMapping("/condition/{condition}")
     public ResponseEntity<List<ToyResponse>> getToyByCondition(@PathVariable Condition condition) {
         return new ResponseEntity<>(this.toyService.getToyByCondition(condition), HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<ToyResponse>> getToyByUserId(@PathVariable long userId) {
+        return new ResponseEntity<>(this.toyService.getToyByUser(userId), HttpStatus.OK);
     }
 
     @GetMapping("/search/{toyName}")

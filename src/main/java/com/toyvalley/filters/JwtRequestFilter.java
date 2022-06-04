@@ -2,7 +2,7 @@ package com.toyvalley.filters;
 
 import com.toyvalley.models.data.user.SimpleUser;
 import com.toyvalley.services.ToyValleyUserDetailService;
-//import com.toyvalley.util.JwtUtil;
+import com.toyvalley.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,36 +16,36 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//@Component
-//@RequiredArgsConstructor
-//public class JwtRequestFilter extends OncePerRequestFilter {
+@Component
+@RequiredArgsConstructor
+public class JwtRequestFilter extends OncePerRequestFilter {
 
-  //  private static final String AUTHORIZATION_STRING = "Authorization";
-//  private static final String BEARER_STRING = "Bearer ";
-//  private static final int BEARER_STRING_LENGTH = 7;
-//  private final JwtUtil jwtUtil;
-//  private final ToyValleyUserDetailService userDetailsService;
+    private static final String AUTHORIZATION_STRING = "Authorization";
+    private static final String BEARER_STRING = "Bearer ";
+    private static final int BEARER_STRING_LENGTH = 7;
+    private final JwtUtil jwtUtil;
+    private final ToyValleyUserDetailService userDetailsService;
 
-//   @Override
-//  protected void doFilterInternal(HttpServletRequest request,
-//                                  HttpServletResponse response,
-//                                  FilterChain chain) throws ServletException, IOException {
-//      final String authorizationHeader = request.getHeader(AUTHORIZATION_STRING);
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain chain) throws ServletException, IOException {
+        final String authorizationHeader = request.getHeader(AUTHORIZATION_STRING);
 
-//      if (authorizationHeader != null && authorizationHeader.startsWith(BEARER_STRING)) {
-//        String jwt = authorizationHeader.substring(BEARER_STRING_LENGTH);
-//       String username = jwtUtil.extractUsername(jwt);
+        if (authorizationHeader != null && authorizationHeader.startsWith(BEARER_STRING)) {
+            String jwt = authorizationHeader.substring(BEARER_STRING_LENGTH);
+            String username = jwtUtil.extractUsername(jwt);
 
-//     if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-//        SimpleUser simpleUser = userDetailsService.getUserByUsername(username);
-//        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-//                new UsernamePasswordAuthenticationToken(simpleUser, null, null);
-//          usernamePasswordAuthenticationToken
-//                .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-//         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-//        }
-//    }
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                SimpleUser simpleUser = userDetailsService.getUserByUsername(username);
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                        new UsernamePasswordAuthenticationToken(simpleUser, null, null);
+                usernamePasswordAuthenticationToken
+                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            }
+        }
 
-//     chain.doFilter(request, response);
-// }
-//}
+        chain.doFilter(request, response);
+    }
+}

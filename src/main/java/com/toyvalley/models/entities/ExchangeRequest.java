@@ -36,4 +36,13 @@ public class ExchangeRequest {
 
     @Column(name = "accept_date")
     private Date acceptDate;
+
+    public ExchangeRequest(Toy toy_offered, Toy toy_requested, String message) {
+        this.toy_offered = toy_offered;
+        this.toy_requested = toy_requested;
+        this.isActive = true;
+        this.message = message;
+        this.requestDate = new Date();
+        this.acceptDate = new Date();
+    }
 }
