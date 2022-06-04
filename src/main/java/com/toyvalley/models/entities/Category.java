@@ -27,7 +27,7 @@ public class Category {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "preference")
+    @OneToMany(mappedBy = "category")
     private List<Preference> preferences;
 
     @OneToMany(mappedBy = "category")

@@ -22,5 +22,5 @@ public class Preference {
     User user;
 
     @ManyToOne
-    Category preference;
+    Category category;
 }

@@ -35,7 +35,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 // enabled cors
                 .cors().and()
                 // don't authenticate this particular request
-                .authorizeRequests().antMatchers("/authenticate").permitAll()
+                .authorizeRequests().antMatchers("/authenticate", "/users/top-traders", "/toys/city/*", "/toys/category/*", "/toys/*", "/toys/user/*").permitAll()
                 // all other requests need to be authenticated
                 .anyRequest().authenticated()
                 // exceptions handling
