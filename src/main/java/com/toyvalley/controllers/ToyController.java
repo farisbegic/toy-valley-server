@@ -4,6 +4,8 @@ import com.toyvalley.models.data.toy.CreateToyRequest;
 import com.toyvalley.models.data.toy.SearchToyResponse;
 import com.toyvalley.models.data.toy.ToyResponse;
 import com.toyvalley.models.data.toy.UpdateToyRequest;
+import com.toyvalley.models.enums.Condition;
+import com.toyvalley.models.enums.Gender;
 import com.toyvalley.services.ToyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +40,16 @@ public class ToyController {
     @GetMapping("/city/{cityId}")
     public ResponseEntity<List<ToyResponse>> getToyByCityId(@PathVariable long cityId) {
         return new ResponseEntity<>(this.toyService.getToyByCity(cityId), HttpStatus.OK);
+    }
+
+    @GetMapping("/gender/{gender}")
+    public ResponseEntity<List<ToyResponse>> getToyByGender(@PathVariable Gender gender) {
+        return new ResponseEntity<>(this.toyService.getToyByGender(gender), HttpStatus.OK);
+    }
+
+    @GetMapping("/condition/{condition}")
+    public ResponseEntity<List<ToyResponse>> getToyByCondition(@PathVariable Condition condition) {
+        return new ResponseEntity<>(this.toyService.getToyByCondition(condition), HttpStatus.OK);
     }
 
     @GetMapping("/search/{toyName}")
