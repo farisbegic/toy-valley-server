@@ -27,6 +27,9 @@ public class User {
   @Column(name = "surname")
   private String surname;
 
+  @Column(name = "logged_in")
+  private boolean loggedIn;
+
   @Column(name = "phone")
   private String phone;
 
@@ -51,12 +54,20 @@ public class User {
   @OneToMany(mappedBy = "user")
   private List<Toy> toys;
 
+  public boolean isLoggedIn() {
+    return loggedIn;
+  }
+  public void setLoggedIn(boolean loggedIn) {
+    this.loggedIn = loggedIn;
+  }
+
   @Column(name = "admin")
   private UserRole admin;
 
   public User(String name, String surname, String phone, String address , City city, String email, String password) {
     this.name = name;
     this.surname = surname;
+    this.loggedIn = false;
     this.phone = phone;
     this.address = address;
     this.city = city;
@@ -69,6 +80,7 @@ public class User {
   public void update(String name, String surname, String phone, String address, City city, String email, String password) {
     this.name = name;
     this.surname = surname;
+    this.loggedIn = false;
     this.phone = phone;
     this.address = address;
     this.city = city;
