@@ -14,4 +14,8 @@ public interface ToyRepository extends JpaRepository<Toy, Long> {
     @Query("SELECT new com.toyvalley.models.data.toy.SearchToyResponse(t.id, t.name) FROM Toy t WHERE upper(t.name) LIKE upper(concat('%', :name, '%'))")
     List<SearchToyResponse> getToysByName(@Param("name") String name);
     List<Toy> findToysByUser_CityId(long user_city_id);
+    @Query(value = "SELECT * FROM Toy t WHERE t.user_id = :userId", nativeQuery = true)
+    List<Toy> getUserToys(long userId);
+
+
 }

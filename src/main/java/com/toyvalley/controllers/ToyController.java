@@ -35,6 +35,11 @@ public class ToyController {
         return new ResponseEntity<>(this.toyService.getToyByCategory(categoryId), HttpStatus.OK);
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<ToyResponse>> getUserToys(@PathVariable long userId) {
+      return new ResponseEntity<>(this.toyService.getUserToys(userId), HttpStatus.OK);
+    }
+
     @GetMapping("/city/{cityId}")
     public ResponseEntity<List<ToyResponse>> getToyByCityId(@PathVariable long cityId) {
         return new ResponseEntity<>(this.toyService.getToyByCity(cityId), HttpStatus.OK);

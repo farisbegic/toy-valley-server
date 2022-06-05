@@ -93,4 +93,15 @@ public class ToyService {
         List<SearchToyResponse> toyResponseList = toyRepository.getToysByName(name);
         return toyResponseList;
     }
+
+  public List<ToyResponse> getUserToys(long userId) {
+    ArrayList<ToyResponse> toyResponseList = new ArrayList<>();
+    List<Toy> toysList = toyRepository.getUserToys(userId);
+
+    for (Toy toy : toysList) {
+      toyResponseList.add(new ToyResponse(toy.getId(), toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDatePurchased()));
+    }
+    return toyResponseList;
+  }
+
 }
