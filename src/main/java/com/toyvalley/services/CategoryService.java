@@ -2,6 +2,7 @@ package com.toyvalley.services;
 
 import com.toyvalley.models.data.category.CategoryResponse;
 import com.toyvalley.models.data.category.CreateCategoryRequest;
+import com.toyvalley.models.data.category.SearchCategoryResponse;
 import com.toyvalley.models.data.category.UpdateCategoryRequest;
 import com.toyvalley.models.entities.Category;
 import com.toyvalley.models.enums.CategoryName;
@@ -15,13 +16,24 @@ import java.util.Optional;
 @Service
 public class CategoryService {
 
-    private final List<Category> categoriesList;
     private final CategoryRepository categoryRepository;
 
     public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
-        this.categoriesList = new ArrayList<>();
+        List<Category> categoriesList = new ArrayList<>();
+
         categoriesList.add(generateVehicleCategory());
+        categoriesList.add(generateActionFiguresCategory());
+        categoriesList.add(generateEducationalCategory());
+        categoriesList.add(generateDollsCategory());
+        categoriesList.add(generateOutdoorSeasonalToysCategory());
+        categoriesList.add(generateArtsAndCraftsCategory());
+        categoriesList.add(generateBuildingAndConstructionCategory());
+        categoriesList.add(generateElectronicCategory());
+        categoriesList.add(generateGamesAndPuzzlesCategory());
+        categoriesList.add(generateInfantToysCategory());
+        categoriesList.add(generateOtherCategory());
+        categoriesList.add(generateMusicalInstrumentsCategory());
     }
 
         public List<CategoryResponse> getCategories() {
@@ -81,5 +93,120 @@ public class CategoryService {
 
         category.setDescription("Vehicles are one of the most popular categories for boys.");
         return category;
+    }
+
+    private Category generateActionFiguresCategory() {
+        Category category = new Category();
+        category.setId(2);
+
+        category.setName(CategoryName.action_figures);
+
+        category.setDescription("Ready for little action?");
+        return category;
+    }
+
+    private Category generateGamesAndPuzzlesCategory() {
+        Category category = new Category();
+        category.setId(3);
+
+        category.setName(CategoryName.games_and_puzzles);
+
+        category.setDescription("Never-getting-old.");
+        return category;
+    }
+
+    private Category generateArtsAndCraftsCategory() {
+        Category category = new Category();
+        category.setId(4);
+
+        category.setName(CategoryName.arts_and_crafts);
+
+        category.setDescription("Perfect place for small artists.");
+        return category;
+    }
+
+    private Category generateBuildingAndConstructionCategory() {
+        Category category = new Category();
+        category.setId(5);
+
+        category.setName(CategoryName.building_and_construction);
+
+        category.setDescription("Bob the builder has never seemed so close.");
+        return category;
+    }
+
+    private Category generateDollsCategory() {
+        Category category = new Category();
+        category.setId(6);
+
+        category.setName(CategoryName.dolls);
+
+        category.setDescription("The most popular category for girls.");
+        return category;
+    }
+
+    private Category generateEducationalCategory() {
+        Category category = new Category();
+        category.setId(7);
+
+        category.setName(CategoryName.educational);
+
+        category.setDescription("Start education with small steps.");
+        return category;
+    }
+
+    private Category generateElectronicCategory() {
+        Category category = new Category();
+        category.setId(8);
+
+        category.setName(CategoryName.electronic);
+
+        category.setDescription("Into rock'n'roll? Here we are.");
+        return category;
+    }
+
+    private Category generateInfantToysCategory() {
+        Category category = new Category();
+        category.setId(9);
+
+        category.setName(CategoryName.infant_toys);
+
+        category.setDescription("Don't get rid of your infant's smile.");
+        return category;
+    }
+
+    private Category generateMusicalInstrumentsCategory() {
+        Category category = new Category();
+        category.setId(10);
+
+        category.setName(CategoryName.musical_instruments);
+
+        category.setDescription("Real place for small musicians.");
+        return category;
+    }
+
+    private Category generateOtherCategory() {
+        Category category = new Category();
+        category.setId(11);
+
+        category.setName(CategoryName.other);
+
+        category.setDescription("Didn't find anything yet? Check other.");
+        return category;
+    }
+
+    private Category generateOutdoorSeasonalToysCategory() {
+        Category category = new Category();
+        category.setId(12);
+
+        category.setName(CategoryName.outdoor_seasonal_toys);
+
+        category.setDescription("Outdoor Seasonal Toys might cheer up your kid during any season.");
+        return category;
+    }
+
+    public List<SearchCategoryResponse> getCategoryByName(CategoryName name) {
+        List<SearchCategoryResponse> categoryResponseList = categoryRepository.getCategoriesByName(name);
+        return categoryResponseList;
     }
 }
