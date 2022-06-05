@@ -7,7 +7,6 @@ import com.toyvalley.models.data.category.CategoryResponse;
 import com.toyvalley.models.data.category.CreateCategoryRequest;
 import com.toyvalley.models.data.category.UpdateCategoryRequest;
 import com.toyvalley.models.entities.Category;
-import com.toyvalley.models.enums.CategoryName;
 import com.toyvalley.repositories.CategoryRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -165,7 +164,7 @@ public class CategoryServiceUnitTest {
         Category outputCategory = CategoryTest.category();
 
         inputCategory.setId(0L);
-        inputCategory.setName(CategoryName.games_and_puzzles);
+        inputCategory.setName("Games and Puzzles");
         inputCategory.setDescription("This is a testing category.");
 
         Mockito.when(categoryRepository.save(inputCategory)).thenReturn(outputCategory);
@@ -181,7 +180,7 @@ public class CategoryServiceUnitTest {
         Category inputCategory = CategoryTest.category();
 
         inputCategory.setId(0L);
-        inputCategory.setName(CategoryName.action_figures);
+        inputCategory.setName("Action Figures");
         inputCategory.setDescription("This is a testing category.");
 
         List<Category> categoryList = new ArrayList<>();
