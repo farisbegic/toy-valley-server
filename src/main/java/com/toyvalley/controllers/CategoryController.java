@@ -4,7 +4,6 @@ import com.toyvalley.models.data.category.CategoryResponse;
 import com.toyvalley.models.data.category.CreateCategoryRequest;
 import com.toyvalley.models.data.category.SearchCategoryResponse;
 import com.toyvalley.models.data.category.UpdateCategoryRequest;
-import com.toyvalley.models.enums.CategoryName;
 import com.toyvalley.services.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +33,7 @@ public class CategoryController {
     }
 
     @GetMapping("/search/{categoryName}")
-    public ResponseEntity<List<SearchCategoryResponse>> getCategoryBySearchName(@PathVariable CategoryName categoryName) {
+    public ResponseEntity<List<SearchCategoryResponse>> getCategoryBySearchName(@PathVariable String categoryName) {
         return new ResponseEntity<>(this.categoryService.getCategoryByName(categoryName), HttpStatus.OK);
     }
 
