@@ -38,4 +38,8 @@ public class CityService {
 
     throw new RuntimeException("City with id " + id + " not found.");
   }
+
+  public void deleteCity(long id) {
+    cityRepository.deleteById(id);
+  }
 }
