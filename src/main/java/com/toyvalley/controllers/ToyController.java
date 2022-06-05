@@ -39,7 +39,7 @@ public class ToyController {
         return new ResponseEntity<>(this.toyService.getToyByCity(cityId), HttpStatus.OK);
     }
 
-    @GetMapping("/gender/{gender}")
+    @GetMapping("/gender/{genderId}")
     public ResponseEntity<List<ToyResponse>> getToyByGender(@PathVariable Gender gender) {
         return new ResponseEntity<>(this.toyService.getToyByGender(gender), HttpStatus.OK);
     }
