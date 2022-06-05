@@ -1,4 +1,4 @@
-package com.toyvalley.models.dtos;
+package com.toyvalley.models.data.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

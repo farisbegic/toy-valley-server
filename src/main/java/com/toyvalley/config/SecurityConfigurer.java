@@ -32,7 +32,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.csrf().disable()
-             
+
                 .cors().and()
                 // don't authenticate this particular request
                 .authorizeRequests().antMatchers("/authenticate", "/users/top-traders", "/toys/city/*", "/toys/category/*", "/toys/*", "/toys/user/*", "/categories", "/toys/gender/*", "toys/condition/*").permitAll()
