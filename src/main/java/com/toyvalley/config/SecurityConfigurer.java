@@ -5,6 +5,7 @@ import com.toyvalley.filters.JwtRequestFilter;
 import com.toyvalley.services.ToyValleyUserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -35,7 +36,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
              
                 .cors().and()
                 // don't authenticate this particular request
-                .authorizeRequests().antMatchers("/authenticate", "/users/top-traders", "/toys/city/*", "/toys/category/*", "/toys/*", "/toys/user/*", "/categories", "/toys/gender/*", "toys/condition/*", "/cities/*").permitAll()
+                .authorizeRequests().antMatchers("/users/top-traders", "/toys/city/*", "/toys/category/*", "/toys/*", "/toys/user/*", "/categories", "/toys/gender/*", "toys/condition/*", "/cities/*").permitAll()
                 // all other requests need to be authenticated
                 .anyRequest().authenticated()
                 // exceptions handling

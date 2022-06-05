@@ -1,6 +1,7 @@
 package com.toyvalley.controllers;
 
 import com.toyvalley.models.data.city.CityResponse;
+import com.toyvalley.models.data.city.CreateCityRequest;
 import com.toyvalley.services.CityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,5 +33,10 @@ public class CityController {
   public ResponseEntity deleteCity(@PathVariable long id) {
     this.cityService.deleteCity(id);
     return new ResponseEntity(HttpStatus.OK);
+  }
+
+  @PostMapping
+  public ResponseEntity<CityResponse> createCity(@RequestBody CreateCityRequest city) {
+    return new ResponseEntity<>(this.cityService.createCity(city), HttpStatus.OK);
   }
 }
