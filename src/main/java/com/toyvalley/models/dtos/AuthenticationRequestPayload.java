@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AuthenticationRequestPayload {
-    private String username;
-    private String password;
+  private String username;
+  private String password;
 }
 

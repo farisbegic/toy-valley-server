@@ -6,6 +6,8 @@ import com.toyvalley.models.data.user.UserResponse;
 import com.toyvalley.models.entities.City;
 import com.toyvalley.models.entities.Preference;
 import com.toyvalley.models.entities.Toy;
+import com.toyvalley.models.enums.Condition;
+import com.toyvalley.models.enums.Gender;
 import com.toyvalley.models.entities.User;
 import com.toyvalley.repositories.CityRepository;
 import com.toyvalley.repositories.ToyRepository;
@@ -109,6 +111,26 @@ public class ToyService {
     public List<ToyResponse> getToyByUser(long userId) {
         ArrayList<ToyResponse> toyResponseList = new ArrayList<>();
         List<Toy> toysList = toyRepository.findToysByUserId(userId);
+
+        for (Toy toy : toysList) {
+            toyResponseList.add(new ToyResponse(toy.getId(), toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDatePurchased()));
+        }
+        return toyResponseList;
+    }
+
+    public List<ToyResponse> getToyByGender(Gender gender) {
+        ArrayList<ToyResponse> toyResponseList = new ArrayList<>();
+        List<Toy> toysList = toyRepository.findToysByGender(gender);
+
+        for (Toy toy : toysList) {
+            toyResponseList.add(new ToyResponse(toy.getId(), toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDatePurchased()));
+        }
+        return toyResponseList;
+    }
+
+    public List<ToyResponse> getToyByCondition(Condition condition) {
+        ArrayList<ToyResponse> toyResponseList = new ArrayList<>();
+        List<Toy> toysList = toyRepository.findToysByCondition(condition);
 
         for (Toy toy : toysList) {
             toyResponseList.add(new ToyResponse(toy.getId(), toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDatePurchased()));

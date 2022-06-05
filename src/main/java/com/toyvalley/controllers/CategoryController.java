@@ -28,7 +28,7 @@ public class CategoryController {
     }
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") // viska
     public ResponseEntity<CategoryResponse> getCategory(@PathVariable long id) {
         return new ResponseEntity<>(this.categoryService.getCategory(id), HttpStatus.OK);
     }

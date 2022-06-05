@@ -1,20 +1,13 @@
 package com.toyvalley.services;
 
 import com.toyvalley.models.data.city.CityResponse;
-import com.toyvalley.models.data.toy.ToyResponse;
 import com.toyvalley.models.data.user.CreateUserRequest;
 import com.toyvalley.models.data.user.TopTraders;
 import com.toyvalley.models.data.user.UpdateUserRequest;
 import com.toyvalley.models.data.user.UserResponse;
-import com.toyvalley.models.entities.City;
-import com.toyvalley.models.entities.Toy;
 import com.toyvalley.models.entities.User;
 import com.toyvalley.repositories.UserRepository;
-import org.hibernate.sql.Update;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
