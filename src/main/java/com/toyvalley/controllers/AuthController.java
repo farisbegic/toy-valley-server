@@ -1,6 +1,6 @@
 package com.toyvalley.controllers;
 
-import com.toyvalley.models.dtos.AuthenticationRequestPayload;
+import com.toyvalley.models.data.authentication.AuthenticationRequestPayload;
 import com.toyvalley.models.data.authentication.AuthenticationResponsePayload;
 
 import com.toyvalley.util.JwtUtil;
