@@ -3,6 +3,7 @@ package com.toyvalley.controllers;
 import com.toyvalley.models.dtos.AuthenticationRequestPayload;
 import com.toyvalley.models.dtos.AuthenticationResponsePayload;
 
+import com.toyvalley.services.ToyValleyUserDetailService;
 import com.toyvalley.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 
@@ -26,20 +27,21 @@ public class AuthController {
 
 
 
+
  @PostMapping("/authenticate")
  public ResponseEntity<AuthenticationResponsePayload> createAuthenticationToken(
          @RequestBody AuthenticationRequestPayload payload
   ) {
     try {
        authenticationManager.authenticate(
-               new UsernamePasswordAuthenticationToken(payload.getUsername(), payload.getPassword())
+               new UsernamePasswordAuthenticationToken(payload.getEmail(), payload.getPassword())
        );
     } catch (AuthenticationException e) {
         e.printStackTrace();
        throw new RuntimeException("Error authenticating!");
     }
 
-  final String jwt = jwtTokenUtil.generateToken(payload.getUsername());
+  final String jwt = jwtTokenUtil.generateToken(payload.getEmail());
 
       return ResponseEntity.ok(new AuthenticationResponsePayload(jwt));
    }

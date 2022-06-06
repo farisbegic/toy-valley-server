@@ -167,7 +167,7 @@ public class CategoryService {
         Category category = new Category();
         category.setId(9);
 
-        category.setName("Infrant toys");
+        category.setName("Infant toys");
 
         category.setDescription("Don't get rid of your infant's smile.");
         return category;

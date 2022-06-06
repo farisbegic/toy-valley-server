@@ -1,5 +1,6 @@
 package com.toyvalley.controllers;
 
+import com.toyvalley.models.dtos.AuthenticationRequestPayload;
 import com.toyvalley.models.data.user.CreateUserRequest;
 import com.toyvalley.models.data.user.TopTraders;
 import com.toyvalley.models.data.user.UpdateUserRequest;
@@ -60,7 +61,7 @@ public class UserController {
       return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PostMapping("/login")
+   /* @PostMapping("/login")
     public Status loginUser(@Valid @RequestBody User user) {
         List<User> users = userRepository.findAll();
         for (User other : users) {
@@ -71,16 +72,16 @@ public class UserController {
             }
         }
         return Status.failure;
-    }
+    }*/
 
-    // @PostMapping("/login")
-    //  public ResponseEntity<String> authenticateUser(@RequestBody AuthenticationRequestPayload loginDto){
-    //     Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-    //             loginDto.getUsername(), loginDto.getPassword()));
-//
-    //    SecurityContextHolder.getContext().setAuthentication(authentication);
-    //    return new ResponseEntity<>("User signed-in successfully.", HttpStatus.OK);
-    //  }
+    @PostMapping("/login")
+     public ResponseEntity<String> authenticateUser(@RequestBody AuthenticationRequestPayload loginDto){
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                loginDto.getEmail(), loginDto.getPassword()));
+
+      SecurityContextHolder.getContext().setAuthentication(authentication);
+       return new ResponseEntity<>("User signed-in successfully.", HttpStatus.OK);
+      }
 
     @GetMapping("/top-traders")
     public ResponseEntity<List<TopTraders>> getTopTraders() {
