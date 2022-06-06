@@ -34,8 +34,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
   @Query("select new com.toyvalley.models.data.user.TopTraders(u.id, u.name, u.surname, count(ex.id)) from User u, Toy t, ExchangeRequest ex where t.user = u AND ex.toy_offered = t GROUP BY u.id ORDER BY count(ex.id) DESC")
   List<TopTraders> findTopTraders();
 
-  @Query("update User u set u.name = :username where u.name = :username")
-  User findFirstByUsername(@Param("username") String username);
+
+  User findFirstByEmail(String mail);
 
 }
 

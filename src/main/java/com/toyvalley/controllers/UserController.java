@@ -77,7 +77,7 @@ public class UserController {
     @PostMapping("/login")
      public ResponseEntity<String> authenticateUser(@RequestBody AuthenticationRequestPayload loginDto){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                loginDto.getUsername(), loginDto.getPassword()));
+                loginDto.getEmail(), loginDto.getPassword()));
 
       SecurityContextHolder.getContext().setAuthentication(authentication);
        return new ResponseEntity<>("User signed-in successfully.", HttpStatus.OK);

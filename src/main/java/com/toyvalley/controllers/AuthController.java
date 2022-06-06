@@ -34,14 +34,14 @@ public class AuthController {
   ) {
     try {
        authenticationManager.authenticate(
-               new UsernamePasswordAuthenticationToken(payload.getUsername(), payload.getPassword())
+               new UsernamePasswordAuthenticationToken(payload.getEmail(), payload.getPassword())
        );
     } catch (AuthenticationException e) {
         e.printStackTrace();
        throw new RuntimeException("Error authenticating!");
     }
 
-  final String jwt = jwtTokenUtil.generateToken(payload.getUsername());
+  final String jwt = jwtTokenUtil.generateToken(payload.getEmail());
 
       return ResponseEntity.ok(new AuthenticationResponsePayload(jwt));
    }
