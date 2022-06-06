@@ -174,8 +174,7 @@ public class CategoryServiceUnitTest {
         assertThat(savedCategory.getName()).isNotNull();
     }
 
-    @Test // another way of checking if the category is saved in database
-    // similar function as the first test
+    @Test
     public void givenCategory_whenSaved_thenInDatabase() {
         Category inputCategory = CategoryTest.category();
 

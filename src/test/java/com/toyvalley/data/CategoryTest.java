@@ -1,8 +1,8 @@
 package com.toyvalley.data;
+
 import com.toyvalley.models.data.category.CreateCategoryRequest;
 import com.toyvalley.models.data.category.UpdateCategoryRequest;
 import com.toyvalley.models.entities.Category;
-
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

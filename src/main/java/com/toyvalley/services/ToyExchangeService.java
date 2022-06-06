@@ -32,7 +32,7 @@ public class ToyExchangeService {
       return new ToyExchangeResponse(responseEntity.getToy_offered().getId(), responseEntity.getToy_requested().getId());
     }
 
-    throw new RuntimeException("Exchange was not created");
+    throw new RuntimeException("Exchange was not created.");
   }
 
 }

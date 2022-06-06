@@ -2,20 +2,15 @@ package com.toyvalley.controllers;
 
 import com.toyvalley.models.dtos.AuthenticationRequestPayload;
 import com.toyvalley.models.dtos.AuthenticationResponsePayload;
-
 import com.toyvalley.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-
 
 @Controller
 @RequiredArgsConstructor

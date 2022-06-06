@@ -8,6 +8,7 @@ import com.toyvalley.models.data.user.UserResponse;
 import com.toyvalley.models.entities.User;
 import com.toyvalley.repositories.UserRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -63,17 +64,6 @@ public class UserService {
 
       throw new RuntimeException("User with id " + id + " is not found");
     }
-
-    /*public UserResponse deactivateUser(long id) {
-      Optional<User> userOptional = userRepository.findById(id);
-      if (userOptional.isPresent()) {
-        userRepository.setUserActivity(false, id);
-        User userEntity = userOptional.get();
-        return new UserResponse(userEntity.getId(), userEntity.getName(), userEntity.getSurname(), userEntity.getPhone(), userEntity.getAddress(), userEntity.getCity(), userEntity.getEmail(), userEntity.getPassword());
-      }
-
-      throw new RuntimeException("User with id " + id + " is not found");
-    }*/
 
     public void deleteUser(long id) {
       userRepository.deleteById(id);

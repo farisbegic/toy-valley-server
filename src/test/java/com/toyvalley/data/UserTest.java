@@ -1,11 +1,8 @@
 package com.toyvalley.data;
 
-import com.toyvalley.models.data.toy.CreateToyRequest;
 import com.toyvalley.models.data.user.CreateUserRequest;
 import com.toyvalley.models.data.user.UpdateUserRequest;
-import com.toyvalley.models.data.user.UserResponse;
 import com.toyvalley.models.entities.City;
-import com.toyvalley.models.entities.Toy;
 import com.toyvalley.models.entities.User;
 
 public class UserTest {
