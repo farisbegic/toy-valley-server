@@ -50,9 +50,9 @@ public class ToyController {
         return new ResponseEntity<>(this.toyService.getToyByName(toyName), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<ToyResponse> createToy(@RequestBody CreateToyRequest toy) {
-        return new ResponseEntity<>(this.toyService.createToy(toy), HttpStatus.OK);
+    @PostMapping("/{userId}")
+    public ResponseEntity<ToyResponse> createToy(@PathVariable long userId, @RequestBody CreateToyRequest toy) {
+      return new ResponseEntity<>(this.toyService.createToy(userId, toy), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
