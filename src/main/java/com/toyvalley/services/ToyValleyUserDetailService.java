@@ -1,4 +1,5 @@
 package com.toyvalley.services;
+
 import com.toyvalley.models.data.user.SimpleUser;
 import com.toyvalley.models.entities.User;
 import com.toyvalley.repositories.UserRepository;
@@ -32,7 +33,6 @@ public class ToyValleyUserDetailService implements UserDetailsService {
     }
 
     private User getFullUserByUsername(String userName) {
-
         return userRepository.findFirstByUsername(userName);
     }
 }

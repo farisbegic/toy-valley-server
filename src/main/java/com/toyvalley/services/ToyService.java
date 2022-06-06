@@ -17,7 +17,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @Service
 @Transactional
@@ -120,7 +120,7 @@ public class ToyService {
 
     public List<ToyResponse> getToyByGender(Gender gender) {
         ArrayList<ToyResponse> toyResponseList = new ArrayList<>();
-        List<Toy> toysList = toyRepository.findToysByGender(gender);
+        List<Toy> toysList = toyRepository.getToyByGender(gender);
 
         for (Toy toy : toysList) {
             toyResponseList.add(new ToyResponse(toy.getId(), toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDatePurchased()));
@@ -130,7 +130,7 @@ public class ToyService {
 
     public List<ToyResponse> getToyByCondition(Condition condition) {
         ArrayList<ToyResponse> toyResponseList = new ArrayList<>();
-        List<Toy> toysList = toyRepository.findToysByCondition(condition);
+        List<Toy> toysList = toyRepository.getToyByCondition(condition);
 
         for (Toy toy : toysList) {
             toyResponseList.add(new ToyResponse(toy.getId(), toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDatePurchased()));
