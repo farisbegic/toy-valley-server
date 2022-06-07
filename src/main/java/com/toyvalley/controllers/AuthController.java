@@ -6,7 +6,6 @@ import com.toyvalley.models.entities.User;
 import com.toyvalley.models.enums.UserRole;
 import com.toyvalley.services.UserService;
 import com.toyvalley.util.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,19 +27,18 @@ public class AuthController {
         this.userService = userService;
     }
 
-
     @PostMapping("/authenticate")
- public ResponseEntity<AuthenticationResponsePayload> createAuthenticationToken(@RequestBody AuthenticationRequestPayload payload) {
-    try {
-       authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(payload.getEmail(), payload.getPassword()));
-    } catch (AuthenticationException e) {
-        e.printStackTrace();
-       throw new RuntimeException("Error authenticating!");
-    }
+    public ResponseEntity<AuthenticationResponsePayload> createAuthenticationToken(@RequestBody AuthenticationRequestPayload payload) {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(payload.getEmail(), payload.getPassword()));
+        } catch (AuthenticationException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error authenticating!");
+        }
 
-    final String jwt = jwtTokenUtil.generateToken(payload.getEmail());
-    User user = userService.getUser(payload.getEmail());
+        final String jwt = jwtTokenUtil.generateToken(payload.getEmail());
+        User user = userService.getUser(payload.getEmail());
 
-    return ResponseEntity.ok(new AuthenticationResponsePayload(jwt, user.getId(), user.getAdmin() == UserRole.admin));
+        return ResponseEntity.ok(new AuthenticationResponsePayload(jwt, user.getId(), user.getAdmin() == UserRole.admin));
    }
 }
