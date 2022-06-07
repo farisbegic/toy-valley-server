@@ -7,6 +7,7 @@ import com.toyvalley.models.data.user.UpdateUserRequest;
 import com.toyvalley.models.data.user.UserResponse;
 import com.toyvalley.models.entities.User;
 import com.toyvalley.repositories.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +16,12 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private final List<User> userList;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
-        userList = new ArrayList<>();
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<UserResponse> getUsers() {
@@ -44,7 +45,7 @@ public class UserService {
     }
 
     public UserResponse createUser(CreateUserRequest user) {
-      User userEntity = new User(user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), user.getCity(), user.getEmail(), user.getPassword());
+      User userEntity = new User(user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), user.getCity(), user.getEmail(), passwordEncoder.encode(user.getPassword()));
       User newUser = userRepository.save(userEntity);
       return new UserResponse(newUser.getId(), newUser.getName(), newUser.getSurname(), newUser.getPhone(), newUser.getAddress(), new CityResponse(newUser.getCity().getId(), newUser.getCity().getName()), newUser.getEmail());
     }
