@@ -11,6 +11,7 @@ import com.toyvalley.models.enums.Gender;
 import com.toyvalley.models.entities.User;
 import com.toyvalley.repositories.CityRepository;
 import com.toyvalley.repositories.ToyRepository;
+import com.toyvalley.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,16 +19,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 @Service
 @Transactional
 public class ToyService {
     private final ToyRepository toyRepository;
     private final CityRepository cityRepository;
+    private final UserRepository userRepository;
 
-    public ToyService(ToyRepository toyRepository, CityRepository cityRepository) {
+    public ToyService(ToyRepository toyRepository, CityRepository cityRepository, UserRepository userRepository) {
         this.toyRepository = toyRepository;
         this.cityRepository = cityRepository;
+        this.userRepository = userRepository;
     }
 
     public List<ToyResponse> getToy() {
@@ -64,13 +66,20 @@ public class ToyService {
         throw new RuntimeException("Item with id " + id + " not found.");
     }
 
+    public ToyResponse createToy(long userId, CreateToyRequest toy) {
+      // Grab User ID from JWT and use User Repository for fetching user.
+      // Save Toy and use newly created toy for Toy Images and Toy Categories
+      Toy toyEntity = new Toy(toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDate_purchased());
+      toyEntity.setUser(userRepository.findUserById(userId));
+      Toy newToy = toyRepository.save(toyEntity);
+      return new ToyResponse(newToy.getId(), newToy.getName(), newToy.getDescription(), newToy.getBrand(), newToy.getGender(), newToy.getCondition(), newToy.getAge(), newToy.getDatePurchased());
     public ToyResponse createToy(CreateToyRequest toy) {
         Toy toyEntity = new Toy(toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDate_purchased());
         Toy newToy = toyRepository.save(toyEntity);
         return new ToyResponse(newToy.getId(), newToy.getName(), newToy.getDescription(), newToy.getBrand(), newToy.getGender(), newToy.getCondition(), newToy.getAge(), newToy.getDatePurchased());
     }
 
-    public ToyResponse updateToy(long id, UpdateToyRequest toy) {
+  public ToyResponse updateToy(long id, UpdateToyRequest toy) {
         Optional<Toy> toyOptional = toyRepository.findById(id);
 
         if (toyOptional.isPresent()) {

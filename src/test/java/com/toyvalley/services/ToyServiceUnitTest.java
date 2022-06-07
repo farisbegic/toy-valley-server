@@ -5,6 +5,7 @@ import com.toyvalley.models.data.toy.*;
 import com.toyvalley.models.entities.Toy;
 import com.toyvalley.repositories.CityRepository;
 import com.toyvalley.repositories.ToyRepository;
+import com.toyvalley.repositories.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -38,8 +39,8 @@ public class ToyServiceUnitTest {
     static class ToyServiceTestContextConfiguration {
         @Bean
         @Primary
-        public ToyService toyService(ToyRepository toyRepository, CityRepository cityRepository) {
-            return new ToyService(toyRepository, cityRepository);
+        public ToyService toyService(ToyRepository toyRepository, CityRepository cityRepository, UserRepository userRepository) {
+            return new ToyService(toyRepository, cityRepository, userRepository);
         }
     }
 
@@ -87,7 +88,7 @@ public class ToyServiceUnitTest {
         Mockito.when(toyRepository.save(any(Toy.class))).thenReturn(outputToy);
 
         CreateToyRequest requestToy = ToyTest.createToyRequest(inputToy);
-        ToyResponse returnedToy = toyService.createToy(requestToy);
+        ToyResponse returnedToy = toyService.createToy(1, requestToy);
 
         assertThat(returnedToy).isNotNull();
         assertThat(returnedToy.getName()).isEqualTo(inputToy.getName());
@@ -102,7 +103,7 @@ public class ToyServiceUnitTest {
         Mockito.when(toyRepository.save(any(Toy.class))).thenReturn(outputToy);
 
         CreateToyRequest requestToy = ToyTest.createToyRequest(inputToy);
-        ToyResponse returnedToy = toyService.createToy(requestToy);
+        ToyResponse returnedToy = toyService.createToy(1, requestToy);
 
         assertThat(returnedToy.getId()).isNotEqualTo(0L);
     }
@@ -115,7 +116,7 @@ public class ToyServiceUnitTest {
         Mockito.when(toyRepository.save(any(Toy.class))).thenReturn(outputToy);
 
         CreateToyRequest requestToy = ToyTest.createToyRequest(inputToy);
-        toyService.createToy(requestToy);
+        toyService.createToy(1, requestToy);
 
         verify(toyRepository, times(1)).save(any(Toy.class));
     }
