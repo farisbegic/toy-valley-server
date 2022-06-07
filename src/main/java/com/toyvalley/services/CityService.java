@@ -1,9 +1,7 @@
 package com.toyvalley.services;
 
-import com.toyvalley.models.data.category.CategoryResponse;
 import com.toyvalley.models.data.city.CityResponse;
 import com.toyvalley.models.data.city.CreateCityRequest;
-import com.toyvalley.models.entities.Category;
 import com.toyvalley.models.entities.City;
 import com.toyvalley.repositories.CityRepository;
 import org.springframework.stereotype.Service;

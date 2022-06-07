@@ -5,7 +5,6 @@ import com.toyvalley.models.data.user.CreateUserRequest;
 import com.toyvalley.models.data.user.TopTraders;
 import com.toyvalley.models.data.user.UpdateUserRequest;
 import com.toyvalley.models.data.user.UserResponse;
-//import com.toyvalley.models.dtos.AuthenticationRequestPayload;
 import com.toyvalley.models.entities.User;
 import com.toyvalley.models.enums.Status;
 import com.toyvalley.repositories.UserRepository;
@@ -30,7 +29,6 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
     private final UserService userService;
-    private AuthenticationManager authenticationManager;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -62,7 +60,7 @@ public class UserController {
       return new ResponseEntity(HttpStatus.OK);
     }
 
-   /* @PostMapping("/login")
+    @PostMapping("/login")
     public Status loginUser(@Valid @RequestBody User user) {
         List<User> users = userRepository.findAll();
         for (User other : users) {
@@ -73,9 +71,9 @@ public class UserController {
             }
         }
         return Status.failure;
-    }*/
+    }
 
-    @PostMapping("/login")
+    /*@PostMapping("/login")
      public ResponseEntity<String> authenticateUser(@RequestBody AuthenticationRequestPayload loginDto){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginDto.getEmail(), loginDto.getPassword()));
@@ -83,6 +81,8 @@ public class UserController {
       SecurityContextHolder.getContext().setAuthentication(authentication);
        return new ResponseEntity<>("User signed-in successfully.", HttpStatus.OK);
       }
+
+    }*/
 
     @GetMapping("/top-traders")
     public ResponseEntity<List<TopTraders>> getTopTraders() {
