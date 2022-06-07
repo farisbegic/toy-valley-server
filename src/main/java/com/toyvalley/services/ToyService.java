@@ -6,9 +6,9 @@ import com.toyvalley.models.data.user.UserResponse;
 import com.toyvalley.models.entities.City;
 import com.toyvalley.models.entities.Preference;
 import com.toyvalley.models.entities.Toy;
+import com.toyvalley.models.entities.User;
 import com.toyvalley.models.enums.Condition;
 import com.toyvalley.models.enums.Gender;
-import com.toyvalley.models.entities.User;
 import com.toyvalley.repositories.CityRepository;
 import com.toyvalley.repositories.ToyRepository;
 import com.toyvalley.repositories.UserRepository;
@@ -67,13 +67,15 @@ public class ToyService {
     }
 
     public ToyResponse createToy(long userId, CreateToyRequest toy) {
-      // Grab User ID from JWT and use User Repository for fetching user.
-      // Save Toy and use newly created toy for Toy Images and Toy Categories
-      Toy toyEntity = new Toy(toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDate_purchased());
-      toyEntity.setUser(userRepository.findUserById(userId));
-      Toy newToy = toyRepository.save(toyEntity);
-      return new ToyResponse(newToy.getId(), newToy.getName(), newToy.getDescription(), newToy.getBrand(), newToy.getGender(), newToy.getCondition(), newToy.getAge(), newToy.getDatePurchased());
-    public ToyResponse createToy(CreateToyRequest toy) {
+        // Grab User ID from JWT and use User Repository for fetching user.
+        // Save Toy and use newly created toy for Toy Images and Toy Categories
+        Toy toyEntity = new Toy(toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDate_purchased());
+        toyEntity.setUser(userRepository.findUserById(userId));
+        Toy newToy = toyRepository.save(toyEntity);
+        return new ToyResponse(newToy.getId(), newToy.getName(), newToy.getDescription(), newToy.getBrand(), newToy.getGender(), newToy.getCondition(), newToy.getAge(), newToy.getDatePurchased());
+    }
+
+      public ToyResponse createToy(CreateToyRequest toy) {
         Toy toyEntity = new Toy(toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDate_purchased());
         Toy newToy = toyRepository.save(toyEntity);
         return new ToyResponse(newToy.getId(), newToy.getName(), newToy.getDescription(), newToy.getBrand(), newToy.getGender(), newToy.getCondition(), newToy.getAge(), newToy.getDatePurchased());
