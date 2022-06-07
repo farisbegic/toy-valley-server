@@ -1,4 +1,5 @@
 package com.toyvalley.services;
+
 import com.toyvalley.models.data.user.SimpleUser;
 import com.toyvalley.models.entities.User;
 import com.toyvalley.repositories.UserRepository;
@@ -19,20 +20,19 @@ public class ToyValleyUserDetailService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        User user = getFullUserByUsername(userName);
+    public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
+        User user = getFullUserByMail(mail);
 
-        return new org.springframework.security.core.userdetails.User(user.getName(),
+        return new org.springframework.security.core.userdetails.User(user.getEmail(),
                 user.getPassword(), Collections.emptyList());
     }
 
-    public SimpleUser getUserByUsername(String userName) {
-        getFullUserByUsername(userName);
-        return new SimpleUser(userName);
+    public SimpleUser getUserByUsername(String mail) {
+        getFullUserByMail(mail);
+        return new SimpleUser(mail);
     }
 
-    private User getFullUserByUsername(String userName) {
-
-        return userRepository.findFirstByUsername(userName);
+    private User getFullUserByMail(String mail) {
+        return userRepository.findFirstByEmail(mail);
     }
 }

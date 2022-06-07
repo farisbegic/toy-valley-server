@@ -24,7 +24,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
         error.put("status", HttpStatus.UNAUTHORIZED.getReasonPhrase());
         error.put("message", authException.getMessage() != null
                 ? authException.getMessage()
-                : "Full authentication is required to access this resource on Toy Valley.");
+                : "Full authentication is required to access this resource");
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentType("application/json");
         response.setCharacterEncoding(StandardCharsets.UTF_8.toString());

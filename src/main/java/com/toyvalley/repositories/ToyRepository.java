@@ -5,15 +5,17 @@ import com.toyvalley.models.entities.Toy;
 import com.toyvalley.models.enums.Condition;
 import com.toyvalley.models.enums.Gender;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface ToyRepository extends JpaRepository<Toy, Long> {
+    @Modifying
     @Query("SELECT DISTINCT t FROM Toy t, ToyCategory tc WHERE t = tc.toy AND tc.category.id = :categoryId")
     List<Toy> getToysByCategoryId(@Param("categoryId") long categoryId);
-
+    @Modifying
     @Query("SELECT new com.toyvalley.models.data.toy.SearchToyResponse(t.id, t.name) FROM Toy t WHERE upper(t.name) LIKE upper(concat('%', :name, '%'))")
     List<SearchToyResponse> getToysByName(@Param("name") String name);
 
@@ -21,10 +23,14 @@ public interface ToyRepository extends JpaRepository<Toy, Long> {
 
     List<Toy> findToysByUserId(long userId);
 
+    @Modifying
     @Query("SELECT new com.toyvalley.models.data.toy.SearchToyResponse(t.id, t.name) FROM Toy t WHERE upper(t.gender) LIKE upper(concat('%', :gender, '%'))")
-    List<Toy> findToysByGender(Gender gender);
+    List<Toy> getToyByGender(@Param("gender") Gender gender);
 
+
+    @Modifying
     @Query("SELECT new com.toyvalley.models.data.toy.SearchToyResponse(t.id, t.name) FROM Toy t WHERE upper(t.condition) LIKE upper(concat('%', :condition, '%'))")
-    List<Toy> findToysByCondition(Condition condition);
+    List<Toy> getToyByCondition(@Param("condition") Condition condition);
+
 
 }
