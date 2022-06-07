@@ -1,6 +1,5 @@
 package com.toyvalley.models.entities;
 
-import com.toyvalley.models.enums.CategoryName;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,30 +20,29 @@ public class Category {
     private long id;
 
     @Column(name = "name")
-    @Enumerated(value = EnumType.STRING)
-    private CategoryName name;
+    private String name;
 
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "preference")
+    @OneToMany(mappedBy = "category")
     private List<Preference> preferences;
 
     @OneToMany(mappedBy = "category")
     private List<ToyCategory> toyCategories;
 
-    public Category(long id, CategoryName name, String description) {
+    public Category(long id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
     }
 
-    public Category(CategoryName name, String description) {
+    public Category(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    public void update(CategoryName name, String description) {
+    public void update(String name, String description) {
         this.name = name;
         this.description = description;
     }

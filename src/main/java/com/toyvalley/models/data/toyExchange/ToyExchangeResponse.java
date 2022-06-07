@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ToyExchangeResponse {
-  private long toyOffered;
-  private long toyRequested;
+    private long toyOffered;
+    private long toyRequested;
 }

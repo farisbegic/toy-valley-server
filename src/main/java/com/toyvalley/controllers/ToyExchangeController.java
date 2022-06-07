@@ -3,7 +3,6 @@ package com.toyvalley.controllers;
 import com.toyvalley.models.data.category.CategoryResponse;
 import com.toyvalley.models.data.category.CreateCategoryRequest;
 import com.toyvalley.models.data.city.CityResponse;
-import com.toyvalley.models.data.toy.ToyResponse;
 import com.toyvalley.models.data.toyExchange.ToyExchangeRequest;
 import com.toyvalley.models.data.toyExchange.ToyExchangeResponse;
 import com.toyvalley.services.CityService;
@@ -28,10 +27,4 @@ public class ToyExchangeController {
   public ResponseEntity<ToyExchangeResponse> createToyExchange(@RequestBody ToyExchangeRequest toyExchangeRequest) {
     return new ResponseEntity<>(this.toyExchangeService.createToyExchange(toyExchangeRequest), HttpStatus.OK);
   }
-
-  /*@GetMapping("/user/{userId}")
-  public ResponseEntity<List<ToyExchangeResponse>> getExchangeRequests(@PathVariable long userId) {
-    return new ResponseEntity<>(this.toyExchangeService.getExchangeRequests(userId), HttpStatus.OK);
-  }*/
-
 }

@@ -1,6 +1,5 @@
 package com.toyvalley.services;
 
-import com.toyvalley.models.data.toy.ToyResponse;
 import com.toyvalley.models.data.toyExchange.ToyExchangeRequest;
 import com.toyvalley.models.data.toyExchange.ToyExchangeResponse;
 import com.toyvalley.models.entities.ExchangeRequest;
@@ -9,8 +8,6 @@ import com.toyvalley.repositories.ToyExchangeRepository;
 import com.toyvalley.repositories.ToyRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service

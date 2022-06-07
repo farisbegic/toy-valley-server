@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ToyExchangeRequest {
-  private long toyOffered;
-  private long toyRequested;
-  private String message;
+    private long toyOffered;
+    private long toyRequested;
+    private String message;
 }
