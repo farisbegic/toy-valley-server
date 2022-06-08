@@ -45,6 +45,14 @@ public class UserService {
         throw new RuntimeException("User with id " + id + " is not found");
     }
 
+    public User getUser(String email) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isPresent()) {
+            return userOptional.get();
+        }
+        throw new RuntimeException("User with email " + email + " is not found");
+    }
+
     public UserResponse createUser(CreateUserRequest user) {
       User userEntity = new User(user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), user.getCity(), user.getEmail(), passwordEncoder.encode(user.getPassword()));
       User newUser = userRepository.save(userEntity);
