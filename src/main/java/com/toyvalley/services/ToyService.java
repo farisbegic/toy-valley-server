@@ -127,7 +127,7 @@ public class ToyService {
         return toyResponseList;
     }
 
-    public List<ToyResponse> getToyByGender(Gender gender) {
+    public List<ToyResponse> getToyByGender(String gender) {
         ArrayList<ToyResponse> toyResponseList = new ArrayList<>();
         List<Toy> toysList = toyRepository.getToyByGender(gender);
 
@@ -137,7 +137,7 @@ public class ToyService {
         return toyResponseList;
     }
 
-    public List<ToyResponse> getToyByCondition(Condition condition) {
+    public List<ToyResponse> getToyByCondition(String condition) {
         ArrayList<ToyResponse> toyResponseList = new ArrayList<>();
         List<Toy> toysList = toyRepository.getToyByCondition(condition);
 
