@@ -66,7 +66,7 @@ public class UserService {
 
       if (userOptional.isPresent()) {
         User userEntity = userOptional.get();
-        userEntity.update(user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), user.getCity(), user.getEmail(), user.getPassword());
+        userEntity.update(user.getName(), user.getSurname(), user.getPhone(), user.getAddress(), user.getCity(), user.getEmail(), passwordEncoder.encode(user.getPassword()));
         userRepository.save(userEntity);
         return new UserResponse(userEntity.getId(), userEntity.getName(), userEntity.getSurname(), userEntity.getPhone(), userEntity.getAddress(), new CityResponse(userEntity.getCity().getId(), userEntity.getCity().getName()), userEntity.getEmail());
       }
