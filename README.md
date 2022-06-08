@@ -19,7 +19,7 @@ git clone https://github.com/farisbegic/toy-valley-server
 The application is running in your browser at `localhost:8080`.
 
 # The project includes the following endpoints
-* `/authenticate` - for user authentication and jwt token obtaining
+* Post mapping `/authenticate` - for user authentication and jwt token obtaining
 * Get mapping `/categories` - for getting all categories
 * Get mapping `/categories/{id}` - for getting a specific category
 * Get mapping `/categories/search/{categoryName}` - for getting category/categories based on name
@@ -42,4 +42,11 @@ The application is running in your browser at `localhost:8080`.
 * Put mapping `/toys/{id}` - for updating a specific toy
 * Delete mapping `/toys/{id}` - for deleting a specific toy
 * Post mapping `/toy-exchange` - for creating a toy exchange request
-* 
+* Get mapping `/users` - for getting all users
+* Get mapping `/users/{id}` - for getting a specific user
+* Post mapping `/users` - for creating a user
+* Put mapping `/users/{id}` - for updating a specific user
+* Delete mapping `/users/{id}` - for deleting a specific user
+* Get mapping `/users/top-traders` - for getting top trader users
+* Post mapping `/users/login` - for returnin status (logged in/not logged in)
+
