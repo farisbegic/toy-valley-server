@@ -40,12 +40,12 @@ public class ToyController {
     }
 
     @GetMapping("/gender/{genderId}")
-    public ResponseEntity<List<ToyResponse>> getToyByGender(@PathVariable Gender genderId) {
+    public ResponseEntity<List<ToyResponse>> getToyByGender(@PathVariable String genderId) {
         return new ResponseEntity<>(this.toyService.getToyByGender(genderId), HttpStatus.OK);
     }
 
     @GetMapping("/condition/{conditionId}")
-    public ResponseEntity<List<ToyResponse>> getToyByCondition(@PathVariable Condition conditionId) {
+    public ResponseEntity<List<ToyResponse>> getToyByCondition(@PathVariable String conditionId) {
         return new ResponseEntity<>(this.toyService.getToyByCondition(conditionId), HttpStatus.OK);
     }
 

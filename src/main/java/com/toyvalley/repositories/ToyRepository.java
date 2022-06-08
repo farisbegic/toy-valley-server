@@ -26,13 +26,13 @@ public interface ToyRepository extends JpaRepository<Toy, Long> {
     List<Toy> findToysByUserId(long userId);
 
     @Modifying
-    @Query("SELECT new com.toyvalley.models.data.toy.SearchToyResponse(t.id, t.name) FROM Toy t WHERE upper(t.gender) LIKE upper(concat('%', :gender, '%'))")
-    List<Toy> getToyByGender(@Param("gender") Gender gender);
+    @Query(value = "SELECT * from Toy WHERE Toy.gender=:gender",nativeQuery = true)
+    List<Toy> getToyByGender(@Param("gender") String gender);
 
 
     @Modifying
-    @Query("SELECT new com.toyvalley.models.data.toy.SearchToyResponse(t.id, t.name) FROM Toy t WHERE upper(t.condition) LIKE upper(concat('%', :condition, '%'))")
-    List<Toy> getToyByCondition(@Param("condition") Condition condition);
+    @Query(value = "SELECT * from Toy WHERE Toy.condition=:condition",nativeQuery = true)
+    List<Toy> getToyByCondition(@Param("condition") String condition);
 
 
 }
