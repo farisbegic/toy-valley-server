@@ -1,7 +1,7 @@
-# Read Me First
-The following was discovered as part of building this project:
+# Overview
+ToyValley is a web application that aims to recycle as many toys as possible by allowing parents to trade toys that their children are no longer using. Each person can create a profile and submit all of their toys for the exchange. Other people can look at the toys and make swap requests using their profile. Users will find easy filters such as most popular categories and most popular cities on the application. 
 
-* The original package name 'com.toy-valley' is invalid and this project uses 'com.toyvalley' instead.
+On this repository, the server side code of the application can be found. 
 
 # Getting Started
 
