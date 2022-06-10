@@ -22,7 +22,8 @@ The application is running in your browser at `localhost:8080`.
 The DBMS used is Postgresql running on port 5432. The name of the database is toy_valley. 
 
 # The project includes the following entities
-* User:
+
+### User:
 - id
 - name
 - surname
@@ -33,7 +34,7 @@ The DBMS used is Postgresql running on port 5432. The name of the database is to
 - active
 - city (foreign key -> references City)
 
-* Toy:
+### Toy:
 - id
 - name
 - description
@@ -46,16 +47,16 @@ The DBMS used is Postgresql running on port 5432. The name of the database is to
 - active
 - user (foreign key -> references User)
 
-* City:
+### City:
 - id
 - name
 
-* Category:
+### Category:
 - id
 - name
 - description
 
-* ExchangeRequest
+### ExchangeRequest
 - id
 - toy_offered (foreign key -> references Toy)
 - toy_requested (foreign key -> references Toy)
@@ -64,17 +65,17 @@ The DBMS used is Postgresql running on port 5432. The name of the database is to
 - request_date
 - accept_date
 
-* Preference:
+### Preference:
 - id
 - user (foreign key -> references User)
 - category (foreign key -> references Category)
 
-* ToyCategory:
+### ToyCategory:
 - id
 - toy (foreign key -> references Toy)
 - category (foreign key -> references Category)
 
-* ToyImage:
+### ToyImage:
 - id
 - toy (foreign key -> references Toy)
 - path
