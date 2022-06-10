@@ -1,9 +1,9 @@
 package com.toyvalley.controllers;
 
-import com.toyvalley.models.data.toy.ToyResponse;
 import com.toyvalley.models.data.toyExchange.ExchangeRequestsResponse;
 import com.toyvalley.models.data.toyExchange.ToyExchangeRequest;
 import com.toyvalley.models.data.toyExchange.ToyExchangeResponse;
+import com.toyvalley.models.data.toyExchange.UpdateExchangeRequest;
 import com.toyvalley.services.ToyExchangeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,5 +29,11 @@ public class ToyExchangeController {
   @PostMapping
   public ResponseEntity<ToyExchangeResponse> createToyExchange(@RequestBody ToyExchangeRequest toyExchangeRequest) {
     return new ResponseEntity<>(this.toyExchangeService.createToyExchange(toyExchangeRequest), HttpStatus.OK);
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<ExchangeRequestsResponse> updateExchangeRequest(@PathVariable long id, @RequestBody UpdateExchangeRequest updateExchangeRequest) {
+    ExchangeRequestsResponse response = this.toyExchangeService.updateExchangeRequest(id, updateExchangeRequest);
+    return new ResponseEntity<>(response, HttpStatus.OK);
   }
 }

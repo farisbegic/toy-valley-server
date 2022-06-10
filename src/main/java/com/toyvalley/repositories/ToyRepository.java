@@ -34,4 +34,7 @@ public interface ToyRepository extends JpaRepository<Toy, Long> {
     List<Toy> getToyByCondition(@Param("condition") String condition);
 
     Toy findAllById(long toyId);
+
+    @Query(value = "SELECT * FROM toy WHERE toy.active = true AND toy.user_id = :userId", nativeQuery = true)
+    List<Toy> findActiveToysByUser(@Param("userId") long userId);
 }
