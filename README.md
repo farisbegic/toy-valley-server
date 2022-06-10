@@ -14,9 +14,70 @@ git clone https://github.com/farisbegic/toy-valley-server
 
 3. Open the pom.xml file in the IDE and confirm to open it as a project.
 
-4. Click the run/debug icon or Shift+F10 on the keyboard.
+4. Create a postgresql database called toy_valley.
+
+5. Click the run/debug icon or Shift+F10 on the keyboard.
 
 The application is running in your browser at `localhost:8080`.
+The DBMS used is Postgresql running on port 5432. The name of the database is toy_valley. 
+
+# The project includes the following entities
+* User:
+- id
+- name
+- surname
+- phone
+- address
+- email
+- password
+- active
+- city (foreign key -> references City)
+
+* Toy:
+- id
+- name
+- description
+- brand
+- gender
+- condition
+- age
+- date_purchased
+- date_posted
+- active
+- user (foreign key -> references User)
+
+* City:
+- id
+- name
+
+* Category:
+- id
+- name
+- description
+
+* ExchangeRequest
+- id
+- toy_offered (foreign key -> references Toy)
+- toy_requested (foreign key -> references Toy)
+- active
+- message
+- request_date
+- accept_date
+
+* Preference:
+- id
+- user (foreign key -> references User)
+- category (foreign key -> references Category)
+
+* ToyCategory:
+- id
+- toy (foreign key -> references Toy)
+- category (foreign key -> references Category)
+
+* ToyImage:
+- id
+- toy (foreign key -> references Toy)
+- path
 
 # The project includes the following endpoints
 * Post mapping `/authenticate` - for user authentication and jwt token obtaining
@@ -49,4 +110,3 @@ The application is running in your browser at `localhost:8080`.
 * Delete mapping `/users/{id}` - for deleting a specific user
 * Get mapping `/users/top-traders` - for getting top trader users
 * Post mapping `/users/login` - for returnin status (logged in/not logged in)
-
