@@ -18,4 +18,5 @@ public class ToyResponse {
     private Condition condition;
     private int age;
     private Date date_purchased;
+
 }

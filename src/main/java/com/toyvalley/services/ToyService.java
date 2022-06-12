@@ -127,6 +127,16 @@ public class ToyService {
         return toyResponseList;
     }
 
+    public List<ToyResponse> getActiveToysByUser(long userId) {
+      ArrayList<ToyResponse> toyResponseList = new ArrayList<>();
+      List<Toy> toysList = toyRepository.findActiveToysByUser(userId);
+
+      for (Toy toy : toysList) {
+        toyResponseList.add(new ToyResponse(toy.getId(), toy.getName(), toy.getDescription(), toy.getBrand(), toy.getGender(), toy.getCondition(), toy.getAge(), toy.getDatePurchased()));
+      }
+      return toyResponseList;
+    }
+
     public List<ToyResponse> getToyByGender(String gender) {
         ArrayList<ToyResponse> toyResponseList = new ArrayList<>();
         List<Toy> toysList = toyRepository.getToyByGender(gender);

@@ -1,5 +1,8 @@
 package com.toyvalley.models.entities;
 
+import com.toyvalley.models.data.toy.ToyResponse;
+import com.toyvalley.models.enums.Condition;
+import com.toyvalley.models.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,5 +47,15 @@ public class ExchangeRequest {
         this.message = message;
         this.requestDate = new Date();
         this.acceptDate = new Date();
+    }
+
+
+    public void update(Toy toy_offered, Toy toy_requested, String message, boolean active, Date acceptDate, Date requestDate) {
+      this.toy_offered = toy_offered;
+      this.toy_requested = toy_requested;
+      this.message = message;
+      this.isActive = active;
+      this.acceptDate = acceptDate;
+      this.requestDate = requestDate;
     }
 }

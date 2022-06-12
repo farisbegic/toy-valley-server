@@ -51,7 +51,7 @@ public class ToyController {
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<ToyResponse>> getToyByUserId(@PathVariable long userId) {
-        return new ResponseEntity<>(this.toyService.getToyByUser(userId), HttpStatus.OK);
+        return new ResponseEntity<>(this.toyService.getActiveToysByUser(userId), HttpStatus.OK);
     }
 
     @GetMapping("/search/{toyName}")

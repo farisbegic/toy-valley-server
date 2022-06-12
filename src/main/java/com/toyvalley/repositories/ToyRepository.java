@@ -29,10 +29,12 @@ public interface ToyRepository extends JpaRepository<Toy, Long> {
     @Query(value = "SELECT * from Toy WHERE Toy.gender=:gender",nativeQuery = true)
     List<Toy> getToyByGender(@Param("gender") String gender);
 
-
     @Modifying
     @Query(value = "SELECT * from Toy WHERE Toy.condition=:condition",nativeQuery = true)
     List<Toy> getToyByCondition(@Param("condition") String condition);
 
+    Toy findAllById(long toyId);
 
+    @Query(value = "SELECT * FROM toy WHERE toy.active = true AND toy.user_id = :userId", nativeQuery = true)
+    List<Toy> findActiveToysByUser(@Param("userId") long userId);
 }
