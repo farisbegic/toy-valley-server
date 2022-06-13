@@ -80,6 +80,17 @@ The DBMS used is Postgresql running on port 5432. The name of the database is to
 - toy (foreign key -> references Toy)
 - path
 
+# The project includes the following environment variables:
+
+## PORT -  to tell web server what port to listen on
+## DB_PORT - database port
+## DB_NAME - database name
+## DB_USERNAME - database username (credentials)
+## DB_PASSWORD - database password (credentials)
+## FRONTEND_URL - to generate base url for connection with frontend
+## SECRET_KEY - for JWT token creation
+## TOKEN_DURATION_MINUTES - to set token duration
+
 # The project includes the following endpoints
 * Post mapping `/authenticate` - for user authentication and jwt token obtaining
 * Get mapping `/categories` - for getting all categories
