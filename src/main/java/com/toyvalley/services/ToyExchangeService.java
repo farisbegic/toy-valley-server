@@ -33,7 +33,7 @@ public class ToyExchangeService {
     Optional<Toy> toyRequested = toyRepository.findById(toyExchangeRequest.getToyRequested());
 
     if (toyOffered.isPresent() && toyRequested.isPresent()) {
-      ExchangeRequest requestEntity = new ExchangeRequest(toyRequested.get(), toyOffered.get(), toyExchangeRequest.getMessage());
+      ExchangeRequest requestEntity = new ExchangeRequest(toyOffered.get(), toyRequested.get(), toyExchangeRequest.getMessage());
       ExchangeRequest responseEntity = toyExchangeRepository.save(requestEntity);
 
       return new ToyExchangeResponse(responseEntity.getToy_offered().getId(), responseEntity.getToy_requested().getId());
